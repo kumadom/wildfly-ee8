@@ -18,17 +18,12 @@ import com.example.app.rest.model.SampleResponse;
 @ApplicationScoped
 @SampleInterceptorAnnotation
 public class SampleController {
-
-	public SampleController() {
-	}
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@Valid SampleRequest res) {
 		System.out.println("Controller");
-		// Logger.getLogger("", "");
-		System.out.println(res.getBusinessData());
 		return Response.status(Status.OK).entity( new SampleResponse()).build();
 	}
 	

@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 public class SampleRequest {
 
 	@NotNull(message = "値の入力が必要")
-	@Size(min = 3, max = 3, message = "{min}以上、{max}以下の値で設定してください")
+	@Size(min = 6, max = 6, message = "半角で6文字の入力が必要")
 	private String businessData;
 
 	public String getBusinessData() {
