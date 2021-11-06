@@ -1,4 +1,4 @@
-package com.example.app.com.jaxrs;
+package com.example.app.com.jaxrs.exceptionMapper;
 
 public class ErrorDetail {
 

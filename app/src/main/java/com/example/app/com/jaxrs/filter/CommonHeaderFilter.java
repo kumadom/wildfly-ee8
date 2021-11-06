@@ -1,11 +1,14 @@
-package com.example.app.com;
+package com.example.app.com.jaxrs.filter;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.ext.Provider;
+
+import com.example.app.com.RequestContext;
 
 @Provider
 public class CommonHeaderFilter implements ContainerRequestFilter {
@@ -13,15 +16,13 @@ public class CommonHeaderFilter implements ContainerRequestFilter {
 	@Inject
 	private RequestContext con;
 	
+	private final Logger logger = Logger.getLogger(getClass().getName());
+	
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		System.out.println("リクエストフィルタの開始");
-		System.out.println(requestContext.toString());
-		System.out.println(requestContext.getHeaders());
+		logger.info("ContainerRequestFilterの開始");
 		con.setStr("request");
-		System.out.println(requestContext.getHeaderString("Content-Type"));
-		System.out.println(requestContext.getHeaderString("hoge"));
-		System.out.println("リクエストフィルタの終了");
+		logger.info("ContainerRequestFilterの終了");
 	}
 	
 }

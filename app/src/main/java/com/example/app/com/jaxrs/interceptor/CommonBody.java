@@ -1,4 +1,6 @@
-package com.example.app.com.interceptor;
+package com.example.app.com.jaxrs.interceptor;
+
+import com.example.app.com.interceptor.BodyHeader;
 
 public class CommonBody {
 	
