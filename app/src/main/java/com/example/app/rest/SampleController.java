@@ -1,6 +1,7 @@
 package com.example.app.rest;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,7 +23,7 @@ public class SampleController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public SampleResponse get(SampleRequest res) {
+	public SampleResponse get(@Valid SampleRequest res) {
 		System.out.println("Controller");
 		// Logger.getLogger("", "");
 		System.out.println(res.getBusinessData());

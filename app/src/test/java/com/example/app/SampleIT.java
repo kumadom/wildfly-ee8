@@ -21,13 +21,14 @@ public class SampleIT {
 	public void test() {
 		ResteasyWebTarget target = client.target(resourcePath);
 		CommonRequest req = new CommonRequest();
-		req.setBusinessData("businessData");
+		//req.setBusinessData("businessData");
 		req.setCommonData("commonData");
 		BodyHeader header = new BodyHeader();
 		header.setBodyHeader("bodyHeader");
 		req.setHeader(header);
 		Entity<CommonRequest> en = Entity.entity(req, MediaType.APPLICATION_JSON);
 		Response res = target.request().header("Content-Type", MediaType.APPLICATION_JSON).post(en);
+		System.out.println(res.getEntity());
 	}
 	
 	@Test

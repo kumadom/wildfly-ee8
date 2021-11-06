@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
@@ -26,18 +27,18 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 	@Inject
 	private RequestContext con;
 	
+	private final Logger logger = Logger.getLogger(getClass().getName());	
+
 	@Override
 	public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
-		System.out.println("エンティティインターセプター開始");
+		logger.fine("aroundReadeFrom start");
 		InputStream originalStream = context.getInputStream();
 		byte[] bytes = IOUtils.toByteArray(originalStream);
 		context.setInputStream(new ByteArrayInputStream(bytes));
 		
 		Jsonb jsonb = JsonbBuilder.create();
 		CommonBody body = jsonb.fromJson(new ByteArrayInputStream(bytes), CommonBody.class);
-		System.out.println(new String(bytes, StandardCharsets.UTF_8));
-		System.out.println(body.getHeader().getBodyHeader());
-		System.out.println("exit!!!!");
+		logger.fine(new String(bytes, StandardCharsets.UTF_8));
 		return context.proceed();
 	}
 	
