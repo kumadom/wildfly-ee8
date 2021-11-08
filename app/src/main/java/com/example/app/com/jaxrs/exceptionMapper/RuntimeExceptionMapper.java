@@ -12,6 +12,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
 
 	@Override
 	public Response toResponse(RuntimeException exception) {
+		exception.printStackTrace();
 		CommonErrorResponse res = new CommonErrorResponse();
 		ErrorDetail detail = new ErrorDetail();
 		detail.setErrorCode("SYSTEM ERROR");

@@ -21,7 +21,7 @@ public class SampleIT {
 	public void test() {
 		ResteasyWebTarget target = client.target(resourcePath);
 		CommonRequest req = new CommonRequest();
-		//req.setBusinessData("businessData");
+		req.setBusinessData("businessData");
 		req.setCommonData("commonData");
 		BodyHeader header = new BodyHeader();
 		header.setBodyHeader("bodyHeader");
