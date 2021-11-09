@@ -9,7 +9,7 @@ import javax.interceptor.InvocationContext;
 
 @Interceptor
 @Priority(Interceptor.Priority.APPLICATION)
-@SampleInterceptorAnnotation
+@SampleInterceptorAnnotation(eventName = "")
 public class SampleInterceptors {
 
 	private final Logger logger = Logger.getLogger(getClass().getName());

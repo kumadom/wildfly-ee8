@@ -1,6 +1,7 @@
 package com.example.app.com.jaxrs.exceptionMapper;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -19,7 +20,7 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
 	
 	@Override
 	public Response toResponse(ConstraintViolationException exception) {
-		logger.info("ConstraintViolationExceptionの処理を開始");
+		logger.log(Level.FINE, exception.getMessage(), exception);
 		List<ErrorDetail> names = exception.getConstraintViolations().stream().map(v -> {
 			return new ErrorDetail(v.getMessage(), StreamSupport.stream(v.getPropertyPath().spliterator(), false)
 					.filter(n -> ElementKind.PROPERTY == n.getKind()).map(p -> (String) p.getName()).findFirst()
@@ -27,7 +28,6 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
 		}).collect(Collectors.toList());
 		CommonErrorResponse res = new CommonErrorResponse();
 		res.setErrors(names);
-		logger.info("ConstraintViolationExceptionの処理を終了");
 		return Response.status(Status.BAD_REQUEST).entity(res).build();
 	}
 

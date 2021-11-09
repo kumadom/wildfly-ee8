@@ -11,6 +11,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.junit.Test;
 
 import com.example.app.rest.SampleController;
+import com.example.app.rest.model.SampleRequest;
 
 public class SampleIT {
 
@@ -21,7 +22,7 @@ public class SampleIT {
 	public void test() {
 		ResteasyWebTarget target = client.target(resourcePath);
 		CommonRequest req = new CommonRequest();
-		req.setBusinessData("businessData");
+		req.setBusinessData("123456");
 		req.setCommonData("commonData");
 		BodyHeader header = new BodyHeader();
 		header.setBodyHeader("bodyHeader");
@@ -33,8 +34,13 @@ public class SampleIT {
 	
 	@Test
 	public void tests() {
-		// Logger logger = Logger.getLogger(getClass().getName());
-		// logger.info("hogehoge");
+		ResteasyWebTarget target = client.target(resourcePath);
+		SampleRequest req = new SampleRequest();
+		req.setBusinessData("123456");
+		req.setCorrelationData("hoge");
+		Entity<SampleRequest> en = Entity.entity(req, MediaType.APPLICATION_JSON);
+		Response res = target.request().header("Content-Type", MediaType.APPLICATION_JSON).post(en);
+		System.out.println(res.getEntity());
 		
 	}
 	

@@ -23,8 +23,9 @@ public class SampleService {
 	public void persist() {
 		logger.info("サービスクラスの処理実施");
 		SampleEntity entity = new SampleEntity();
-		entity.setValue(String.valueOf(new Random(1000).nextInt()));
-		this.em.persist(entity);
+		entity.setValue(String.valueOf(new Random().nextLong()));
+		entity.setId(new Random().nextInt());
+		em.persist(entity);
 		logger.info("サービスクラスの処理終了");
 	}
 	

@@ -7,7 +7,7 @@
 
   <persistence-unit name="SampleUnit">
     <jta-data-source>java:/PostgresDS</jta-data-source>
-    <class>com≥example.domain.db.SampleEntity</class>
+    <class>com.example.domain.db.SampleEntity</class>
     <properties>
       <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
       <property name="hibernate.hbm2ddl.auto" value=""/>

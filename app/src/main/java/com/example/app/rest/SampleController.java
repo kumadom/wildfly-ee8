@@ -18,7 +18,7 @@ import com.example.domain.service.SampleService;
 
 @Path(value = "sample")
 @ApplicationScoped
-@SampleInterceptorAnnotation
+@SampleInterceptorAnnotation(eventName = "EVENT00001")
 public class SampleController {
 	
 	@Inject
