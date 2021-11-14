@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
-import javax.ws.rs.ext.Provider;
 
-@Provider
+// @Provider
 public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException> {
 
 	private final Logger logger = Logger.getLogger(getClass().getName());
@@ -22,7 +22,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
 		detail.setErrorMessage(exception.getMessage());
 		res.setErrors(Arrays.asList(detail));
 		logger.log(Level.SEVERE, exception.getMessage(), exception);
-		return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).build();
+		return Response.status(Status.INTERNAL_SERVER_ERROR).entity(res).type(MediaType.APPLICATION_JSON).build();
 	}
 
 }

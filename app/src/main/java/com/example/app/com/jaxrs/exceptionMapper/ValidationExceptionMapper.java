@@ -38,8 +38,8 @@ public class ValidationExceptionMapper implements ExceptionMapper<ConstraintViol
 			logger.info(regex.matcher(v.getMessageTemplate()).replaceAll(""));
 		});
 		
-		
 		CommonErrorResponse res = new CommonErrorResponse();
+		
 		res.setErrors(names);
 		return Response.status(Status.BAD_REQUEST).entity(res).build();
 	}

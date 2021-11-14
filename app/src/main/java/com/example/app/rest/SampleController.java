@@ -16,6 +16,7 @@ import com.example.app.rest.model.SampleRequest;
 import com.example.app.rest.model.SampleResponse;
 import com.example.domain.service.SampleService;
 
+
 @Path(value = "sample")
 @ApplicationScoped
 @SampleInterceptorAnnotation(eventName = "EVENT00001")
