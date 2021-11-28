@@ -11,4 +11,28 @@ services:
       - 5432:5432
     volumes:
       - ./docker/postgres/init:/docker-entrypoint-initdb.d
-      
+  git:
+    image: gitlab/gitlab-ce:14.0.2-ce.0
+    hostname: 'localhost'
+    ports:
+      - '80:80'
+      - '22:22'
+    secrets:
+      - gitlab_root_password
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        gitlab_rails['initial_root_password'] = "password"
+    volumes:
+      - './git/config:/etc/gitlab'
+      - './git/logs:/var/log/gitlab'
+      - './git/data:/var/opt/gitlab'
+  jenkins:
+    image: jenkins/jenkins:2.296
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - ./jenkins:/var/jenkins_home
+secrets:
+  gitlab_root_password:
+    file: ./root_password.txt

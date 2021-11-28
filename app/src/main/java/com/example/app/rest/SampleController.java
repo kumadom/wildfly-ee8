@@ -16,7 +16,12 @@ import com.example.app.rest.model.SampleRequest;
 import com.example.app.rest.model.SampleResponse;
 import com.example.domain.service.SampleService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 
+
+@Api(value = "/hoge")
 @Path(value = "sample")
 @ApplicationScoped
 @SampleInterceptorAnnotation(eventName = "EVENT00001")
@@ -28,6 +33,9 @@ public class SampleController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiImplicitParams({
+		@ApiImplicitParam(name = "X-custom-header", required = true, paramType = "header", value = "hoge", dataType = "string")
+	})
 	public Response get(@Valid SampleRequest res) {
 		System.out.println("Controller");
 		service.persist();
