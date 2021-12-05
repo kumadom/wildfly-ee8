@@ -165,12 +165,29 @@
                         <password>sa</password>
                     </security>
                 </datasource>
+                <datasource jndi-name="java:/PostgresDS" pool-name="PostgresDS">
+                    <connection-url>jdbc:postgresql://db:5432/postgres</connection-url>
+                    <driver-class>org.postgresql.Driver</driver-class>
+                    <driver>postgresql-42.2.24.jar</driver>
+                    <security>
+                        <user-name>user</user-name>
+                        <password>password</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker"/>
+                        <background-validation>true</background-validation>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter"/>
+                    </validation>
+                </datasource>
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
                 </drivers>
             </datasources>
+        </subsystem>
+        <subsystem xmlns="urn:jboss:domain:deployment-scanner:2.0">
+            <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000" runtime-failure-causes-rollback="${jboss.deployment.scanner.rollback.on.failure:false}"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:discovery:1.0"/>
         <subsystem xmlns="urn:jboss:domain:distributable-web:2.0" default-session-management="default" default-single-sign-on-management="default">
@@ -576,4 +593,9 @@
             <remote-destination host="localhost" port="25"/>
         </outbound-socket-binding>
     </socket-binding-group>
+        <deployments>
+        <deployment name="postgresql-42.2.24.jar" runtime-name="postgresql-42.2.24.jar">
+            <content sha1="4035818e75b14b8b116be8a0ef8f1009073e031e"/>
+        </deployment>
+    </deployments>
 </server>

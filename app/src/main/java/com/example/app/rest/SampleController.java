@@ -21,7 +21,6 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 
 
-@Api(value = "/hoge")
 @Path(value = "sample")
 @ApplicationScoped
 @SampleInterceptorAnnotation(eventName = "EVENT00001")
