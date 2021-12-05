@@ -19,7 +19,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <jboss-home>/usr/local/wildfly-18.0.1.Final</jboss-home>
+    <jboss-home>C:\Users\akito\server\wildfly-18.0.1.Final</jboss-home>
   </properties>
 
   <dependencies>
@@ -199,7 +199,7 @@
           <target>
             <property name="fileDir" value="server-definition"/>
             <copy file="${fileDir}/standalone.xml" tofile="${jboss-home}/standalone/configuration/standalone.xml" overwrite="true"/>
-            <copy file="${fileDir}/postgresql-42.2.24.jar" tofile="${jboss-home}/standalone/deployments/postgresql-42.2.24.jar" overwrite="true"/>
+            <copy file="${fileDir}/postgresql-42.2.24.jar" tofile="${jboss-home}/standalone//data/content/40/35818e75b14b8b116be8a0ef8f1009073e031e/content" overwrite="true"/>
           </target>
         </configuration>
         <executions>
@@ -217,13 +217,9 @@
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>2.1.0.Final</version>
         <configuration>
-          <commands>
-            <command>deploy ${jboss-home}/standalone/deployments/postgresql-42.2.24.jar</command>
-            <command>data-source add --name=PostgresDS --jndi-name=java:/PostgresDS --driver-class=org.postgresql.Driver --driver-name=postgresql-42.2.24.jar --user-name=user --password=password --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker --background-validation=true --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter --connection-url=jdbc:postgresql://localhost:5432/postgres</command>
-          </commands>
           <jbossHome>${jboss-home}</jbossHome>
           <serverConfig>standalone.xml</serverConfig>
-          <javaHome>/Applications/Eclipse_2021-09.app/Contents/java/8/Home</javaHome>
+          <javaHome>C:\Users\akito\scoop\apps\openjdk8-redhat\current</javaHome>
         </configuration>
         <executions>
           <execution>

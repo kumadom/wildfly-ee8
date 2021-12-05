@@ -7,8 +7,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
-import javax.json.bind.Jsonb;
-import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
@@ -30,8 +28,8 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 		byte[] bytes = IOUtils.toByteArray(originalStream);
 		context.setInputStream(new ByteArrayInputStream(bytes));
 		
-		Jsonb jsonb = JsonbBuilder.create();
-		CommonBody body = jsonb.fromJson(new ByteArrayInputStream(bytes), CommonBody.class);
+		// Jsonb jsonb = JsonbBuilder.create();
+		// CommonBody body = jsonb.fromJson(new ByteArrayInputStream(bytes), CommonBody.class);
 		logger.info(new String(bytes, StandardCharsets.UTF_8));
 		logger.info("ReaderInterceptorの終了");
 
