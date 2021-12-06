@@ -3,16 +3,20 @@ package com.example.app.com.interceptor;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
+
+import com.example.app.com.core.log.ApplicationLogger;
+import com.example.app.com.core.log.LoggerNameValue;
 
 @Interceptor
 @Priority(Interceptor.Priority.APPLICATION)
 @SampleInterceptorAnnotation(eventName = "")
 public class SampleInterceptors {
 
-	private final Logger logger = Logger.getLogger(getClass().getName());
+	@Inject @ApplicationLogger(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@AroundInvoke
 	public Object intercept(InvocationContext ic) throws Exception {
