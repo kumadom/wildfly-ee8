@@ -15,7 +15,7 @@ public class AppJsonConfig implements ContextResolver<Jsonb> {
 	private final Jsonb jsonb;
 
 	public AppJsonConfig() {
-		JsonbConfig config = new JsonbConfig().withNullValues(true);
+		JsonbConfig config = new JsonbConfig().withNullValues(false);
 		this.jsonb = JsonbBuilder.create(config);
 	}
 	

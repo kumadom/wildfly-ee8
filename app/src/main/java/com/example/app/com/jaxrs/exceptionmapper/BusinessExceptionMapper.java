@@ -1,4 +1,4 @@
-package com.example.app.com.jaxrs.exceptionMapper;
+package com.example.app.com.jaxrs.exceptionmapper;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -12,6 +12,8 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 import com.example.app.com.core.exception.BusinessException;
+import com.example.app.com.jaxrs.request.model.ErrorResponse;
+import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
 
 @Provider
 public class BusinessExceptionMapper implements ExceptionMapper<BusinessException> {
@@ -22,12 +24,12 @@ public class BusinessExceptionMapper implements ExceptionMapper<BusinessExceptio
 	public Response toResponse(BusinessException exception) {
 		logger.info(MessageFormat.format("{0}の処理を実行します。", exception.getClass().getName()));
 
-		List<ErrorBody> errors = exception.getErrorDetails().stream()
-				.map(e -> new ErrorBody(e.getCode(), MessageFormat.format(e.getCode(), (Object[]) e.getArgs())))
+		List<ErrorDetailInfo> errors = exception.getErrorDetails().stream()
+				.map(e -> new ErrorDetailInfo(e.getCode(), MessageFormat.format(e.getCode(), (Object[]) e.getArgs())))
 				.collect(Collectors.toList());
 
 		return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON)
-				.entity(new CommonErrorResponse(errors)).build();
+				.entity(new ErrorResponse(errors)).build();
 	}
 
 }
