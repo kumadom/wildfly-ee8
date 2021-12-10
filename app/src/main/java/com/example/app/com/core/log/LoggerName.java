@@ -11,7 +11,7 @@ import javax.inject.Qualifier;
 @Qualifier
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD, ElementType.CONSTRUCTOR, ElementType.PARAMETER})
-public @interface ApplicationLogger {
+public @interface LoggerName {
 
 	@Nonbinding LoggerNameValue value();
 }

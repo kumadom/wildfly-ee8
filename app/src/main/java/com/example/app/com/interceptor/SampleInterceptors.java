@@ -8,7 +8,7 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
-import com.example.app.com.core.log.ApplicationLogger;
+import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
 
 @Interceptor
@@ -16,7 +16,7 @@ import com.example.app.com.core.log.LoggerNameValue;
 @SampleInterceptorAnnotation(eventName = "")
 public class SampleInterceptors {
 
-	@Inject @ApplicationLogger(LoggerNameValue.SYSTEM) private Logger logger;
+	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@AroundInvoke
 	public Object intercept(InvocationContext ic) throws Exception {

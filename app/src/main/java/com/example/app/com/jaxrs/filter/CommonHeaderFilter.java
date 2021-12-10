@@ -11,7 +11,7 @@ import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.ext.Provider;
 
 import com.example.app.com.RequestContext;
-import com.example.app.com.core.log.ApplicationLogger;
+import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
 
 @Provider
@@ -19,7 +19,7 @@ public class CommonHeaderFilter implements ContainerRequestFilter, ContainerResp
 
 	@Inject private RequestContext con;
 	
-	@Inject @ApplicationLogger(LoggerNameValue.SYSTEM) private Logger logger;
+	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {

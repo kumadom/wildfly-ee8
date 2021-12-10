@@ -19,6 +19,7 @@ services:
     container_name: app_ee
     ports:
       - 18080:8080
+      - 9990:9990
   ci:
     image: maven:3.8.4-jdk-8
     container_name: app_ci

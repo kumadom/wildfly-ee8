@@ -8,11 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 
 public class SampleRequest {
 
-	@NotNull(message = "{sample}")
-	@Size(min = 6, max = 6, message = "{message}")
+	@NotNull(message = "{APYC00001}")
+	@Size(min = 6, max = 6, message = "{APYC00002}")
 	private String businessData;
 	
-	@NotNull(message = "{hogehoge}")
+	@NotNull(message = "{APYC00001}")
 	private String correlationData;
 	
 	public String getBusinessData() {
@@ -31,7 +31,7 @@ public class SampleRequest {
 		this.correlationData = correlationData;
 	}
 
-	@AssertTrue(message = "値の入力が両方とも必要")
+	@AssertTrue(message = "{APYC00004}")
 	public boolean isCorrelationCheck() {
 		return StringUtils.isNoneEmpty(businessData, correlationData);
 	}

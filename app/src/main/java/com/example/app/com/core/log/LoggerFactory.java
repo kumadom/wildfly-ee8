@@ -10,10 +10,8 @@ import javax.enterprise.inject.spi.InjectionPoint;
 public class LoggerFactory {
 
 	@Produces
-	@ApplicationLogger(LoggerNameValue.DEFAULT)
+	@LoggerName(LoggerNameValue.DEFAULT)
 	public Logger createLogger(InjectionPoint injectionPoint) {
-		ApplicationLogger annotation = injectionPoint.getAnnotated().getAnnotation(ApplicationLogger.class);
-		System.out.println(annotation.value().name());
 		return Logger.getLogger(injectionPoint.getMember().getDeclaringClass().getName());
 	}
 

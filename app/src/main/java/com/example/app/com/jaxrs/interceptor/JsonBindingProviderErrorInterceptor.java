@@ -6,16 +6,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.ws.rs.ProcessingException;
-import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.ReaderInterceptorContext;
 
-import com.example.app.com.core.exception.BusinessException;
+import com.example.app.com.core.exception.AppBusinessException;
 
 @Provider
-@Produces("application/jsonb")
 public class JsonBindingProviderErrorInterceptor implements ReaderInterceptor {
 
 	private final Logger logger = Logger.getLogger(getClass().getName());
@@ -28,8 +26,12 @@ public class JsonBindingProviderErrorInterceptor implements ReaderInterceptor {
 			Object obj = context.proceed();
 			return obj;
 		} catch (ProcessingException e) {
-			logger.log(Level.INFO, "JSONボディの解析中にエラーが発生", e);
-			throw new BusinessException("API-00002", "hogehoge");
+			logger.log(Level.INFO, e.getClass().getName());
+			logger.log(Level.INFO, e.getClass().getCanonicalName());
+			logger.log(Level.INFO, e.getClass().getSimpleName());
+			logger.log(Level.INFO, e.toString());
+			
+			throw new AppBusinessException("APY00003", "hogehoge");
 		}
 	}
 

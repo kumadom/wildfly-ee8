@@ -13,7 +13,7 @@ import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.WriterInterceptor;
 import javax.ws.rs.ext.WriterInterceptorContext;
 
-import com.example.app.com.core.log.ApplicationLogger;
+import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
 import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
 import com.example.app.com.jaxrs.request.model.ErrorResponse;
@@ -24,7 +24,7 @@ import com.example.app.com.jaxrs.request.model.dsp.DspCompatibleResponse;
 @Priority(Priorities.ENTITY_CODER)
 public class DspCompatibleInterceptor implements WriterInterceptor{
 
-	@Inject @ApplicationLogger(LoggerNameValue.SYSTEM) private Logger logger;
+	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@Override
 	public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
