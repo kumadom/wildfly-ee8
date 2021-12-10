@@ -8,9 +8,15 @@ import javax.enterprise.inject.Produces;
 @ApplicationScoped
 public class MessagePropertyFactory {
 
+	private final ResourceBundle messages;
+	
+	public MessagePropertyFactory() {
+		messages = ResourceBundle.getBundle("messages");
+	}
+	
 	@Produces
 	@MessageProperty
 	public ResourceBundle getMessageProperty() {
-		return ResourceBundle.getBundle("errorMessages");
+		return messages;
 	}
 }

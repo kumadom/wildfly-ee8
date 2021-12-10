@@ -1,6 +1,6 @@
 package com.example.app.com.jaxrs.exceptionmapper.handler;
 
-import java.text.MessageFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
+import org.apache.commons.text.StringSubstitutor;
 
 import com.example.app.com.core.exception.AppBusinessException;
 import com.example.app.com.core.message.MessageProperty;
@@ -31,7 +33,7 @@ public class AppBusinessExceptionHandler {
 
 		List<ErrorDetailInfo> errors = exception.getErrorDetails().stream()
 				.map(e -> new ErrorDetailInfo(e.getCode(),
-						MessageFormat.format(messages.getString(e.getCode()), (Object[])e.getArgs()), errorInfo))
+						new StringSubstitutor(e.getArgs().orElse(new HashMap<String, String>())).replace(messages.getString(e.getCode())), errorInfo))
 				.collect(Collectors.toList());
 
 		return Response.status(status).type(MediaType.APPLICATION_JSON).entity(new ErrorResponse(errors)).build();

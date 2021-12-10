@@ -88,9 +88,13 @@
 	  <artifactId>hibernate-validator</artifactId>
    	  <version>5.2.4.Final</version>
     </dependency>
-<!-- Thanks for using https://jar-download.com -->
-
-
+    <!-- Utility -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-text</artifactId>
+      <version>1.9</version>
+    </dependency>
+    
     <!-- Test library -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>

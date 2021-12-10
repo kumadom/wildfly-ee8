@@ -31,7 +31,7 @@ public class JsonBindingProviderErrorInterceptor implements ReaderInterceptor {
 			logger.log(Level.INFO, e.getClass().getSimpleName());
 			logger.log(Level.INFO, e.toString());
 			
-			throw new AppBusinessException("APY00003", "hogehoge");
+			throw new AppBusinessException("APYC-00003", null);
 		}
 	}
 

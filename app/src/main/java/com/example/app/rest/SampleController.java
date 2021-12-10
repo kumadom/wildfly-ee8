@@ -1,9 +1,9 @@
 package com.example.app.rest;
 
+import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 import com.example.app.com.core.exception.AppBusinessException;
 import com.example.app.com.interceptor.SampleInterceptorAnnotation;
 import com.example.app.rest.model.SampleRequest;
-import com.example.domain.service.SampleService;
 
 
 @Path(value = "sample")
@@ -23,8 +22,8 @@ import com.example.domain.service.SampleService;
 @SampleInterceptorAnnotation(eventName = "EVENT00001")
 public class SampleController {
 	
-	@Inject
-	private SampleService service;
+//	@Inject
+//	private SampleService service;
 	
 	private final Logger logger = Logger.getLogger(getClass().getName());
 	
@@ -33,7 +32,12 @@ public class SampleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@Valid SampleRequest res) {
 		logger.info(Thread.currentThread().getName());
-		throw new AppBusinessException("APY10001","hoge","fuga");
+		throw new AppBusinessException("APYC-00001", new HashMap<String, String>(){
+			private static final long serialVersionUID = 6831065768260095416L;
+			{
+				put("className", getClass().getName());
+			}
+		});
 //		service.persist();
 //		return Response.status(Status.OK).entity( new SampleResponse()).build();
 	}
