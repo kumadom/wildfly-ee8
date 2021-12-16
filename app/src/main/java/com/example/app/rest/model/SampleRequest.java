@@ -1,24 +1,42 @@
 package com.example.app.rest.model;
 
-import javax.validation.constraints.AssertTrue;
+import javax.json.bind.annotation.JsonbTransient;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.StringUtils;
 
+import com.example.app.com.json.bind.annotation.MaskInfomation;
+
 public class SampleRequest {
 
-	@NotNull(message = "{APYC00001}")
-	@Size(min = 6, max = 6, message = "{APYC00002}")
+//	@NotNull(message = "{APYC00001}")
+//	@Size(min = 6, max = 6, message = "{APYC00002}")
+	// @JsonbTypeAdapter(CustomJsonAdaptor.class)
+	// @JsonbTypeSerializer(CustomJsonbSerializer.class)
+	@MaskInfomation
 	private String businessData;
 	
 	@NotNull(message = "{APYC00001}")
 	private String correlationData;
 	
+	@NotNull(message = "{APYC00001}")
+	@Valid
+	private Hoge hoge;
+	
+	
+	public Hoge getHoge() {
+		return hoge;
+	}
+
+	public void setHoge(Hoge hoge) {
+		this.hoge = hoge;
+	}
+
 	public String getBusinessData() {
 		return businessData;
 	}
-
+	
 	public void setBusinessData(String businessData) {
 		this.businessData = businessData;
 	}	
@@ -31,7 +49,8 @@ public class SampleRequest {
 		this.correlationData = correlationData;
 	}
 
-	@AssertTrue(message = "{APYC00004}")
+	// @AssertTrue(message = "{APYC00004}")
+	@JsonbTransient
 	public boolean isCorrelationCheck() {
 		return StringUtils.isNoneEmpty(businessData, correlationData);
 	}

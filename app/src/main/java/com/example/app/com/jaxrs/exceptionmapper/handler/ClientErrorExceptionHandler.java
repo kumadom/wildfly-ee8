@@ -23,7 +23,7 @@ public class ClientErrorExceptionHandler {
 	private ResourceBundle messages;
 	
 	public Response handle(ClientErrorException exception, Status status) {
-		List<ErrorDetailInfo> errors = Arrays.asList(new ErrorDetailInfo("APY00001", messages.getString("APY00001")));
+		List<ErrorDetailInfo> errors = Arrays.asList(new ErrorDetailInfo("APYC-00001", messages.getString("APYC-00001")));
 		return Response.status(status).type(MediaType.APPLICATION_JSON).entity(new ErrorResponse(errors)).build();
 	}
 

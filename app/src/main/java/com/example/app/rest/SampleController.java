@@ -1,6 +1,5 @@
 package com.example.app.rest;
 
-import java.util.HashMap;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -12,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.example.app.com.core.exception.AppBusinessException;
 import com.example.app.com.interceptor.SampleInterceptorAnnotation;
 import com.example.app.rest.model.SampleRequest;
 
@@ -32,12 +30,8 @@ public class SampleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@Valid SampleRequest res) {
 		logger.info(Thread.currentThread().getName());
-		throw new AppBusinessException("APYC-00001", new HashMap<String, String>(){
-			private static final long serialVersionUID = 6831065768260095416L;
-			{
-				put("className", getClass().getName());
-			}
-		});
+		return null;
+		//throw new RuntimeException();
 //		service.persist();
 //		return Response.status(Status.OK).entity( new SampleResponse()).build();
 	}

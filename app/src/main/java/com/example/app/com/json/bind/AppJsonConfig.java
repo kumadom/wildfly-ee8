@@ -1,4 +1,4 @@
-package com.example.app.com.jaxrs.binding;
+package com.example.app.com.json.bind;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
