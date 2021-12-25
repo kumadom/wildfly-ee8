@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -36,7 +35,7 @@ public class AppBusinessExceptionHandler {
 						new StringSubstitutor(e.getArgs().orElse(new HashMap<String, String>())).replace(messages.getString(e.getCode())), errorInfo))
 				.collect(Collectors.toList());
 
-		return Response.status(status).type(MediaType.APPLICATION_JSON).entity(new ErrorResponse(errors)).build();
+		return Response.status(status).entity(new ErrorResponse(errors)).build();
 	}
 
 }

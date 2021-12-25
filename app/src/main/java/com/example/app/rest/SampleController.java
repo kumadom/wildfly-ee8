@@ -1,5 +1,6 @@
 package com.example.app.rest;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -10,9 +11,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.example.app.com.interceptor.SampleInterceptorAnnotation;
 import com.example.app.rest.model.SampleRequest;
+import com.example.app.rest.model.SampleResponse;
 
 
 @Path(value = "sample")
@@ -29,11 +32,19 @@ public class SampleController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@Valid SampleRequest res) {
+		RuntimeException ex = null;
+		logger.severe("nullnull");
+		logger.log(Level.SEVERE, "nullのテスト", ex);
 		logger.info(Thread.currentThread().getName());
-		return null;
+		//throw new RuntimeException();
+		// throw new AppBusinessException("APYC00004", null);
+		
+		// return null;
 		//throw new RuntimeException();
 //		service.persist();
-//		return Response.status(Status.OK).entity( new SampleResponse()).build();
+		SampleResponse re = new SampleResponse();
+		re.setHoge("");
+		return Response.status(Status.OK).entity(re).build();
 	}
 	
 }

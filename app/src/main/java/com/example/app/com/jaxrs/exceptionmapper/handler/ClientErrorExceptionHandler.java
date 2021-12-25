@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.ClientErrorException;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -24,7 +23,7 @@ public class ClientErrorExceptionHandler {
 	
 	public Response handle(ClientErrorException exception, Status status) {
 		List<ErrorDetailInfo> errors = Arrays.asList(new ErrorDetailInfo("APYC-00001", messages.getString("APYC-00001")));
-		return Response.status(status).type(MediaType.APPLICATION_JSON).entity(new ErrorResponse(errors)).build();
+		return Response.status(status).entity(new ErrorResponse(errors)).build();
 	}
 
 }
