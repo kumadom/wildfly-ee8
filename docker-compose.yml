@@ -20,6 +20,8 @@ services:
     ports:
       - 18080:8080
       - 9990:9990
+    volumes:
+      - ./app/server-definition/cli_commands.txt:/opt/entry/cli_commands.txt
   ci:
     image: maven:3.8.4-jdk-8
     container_name: app_ci

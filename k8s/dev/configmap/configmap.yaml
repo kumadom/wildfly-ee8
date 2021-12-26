@@ -3,15 +3,7 @@ kind: ConfigMap
 metadata:
   name: game-demo
 data:
-  # プロパティーに似たキー。各キーは単純な値にマッピングされている
-  player_initial_lives: "3"
-  ui_properties_file_name: "user-interface.properties"
-
-  # ファイルに似たキー
-  game.properties: |
-    enemy.types=aliens,monsters
-    player.maximum-lives=5    
-  user-interface.properties: |
+  application.properties: |
     color.good=purple
     color.bad=yellow
     allow.textmode=true

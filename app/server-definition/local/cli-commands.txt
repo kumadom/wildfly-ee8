@@ -1,0 +1,3 @@
+deploy C:\Users\akito\server\wildfly-18.0.1.Final\standalone\deployments\postgresql-42.2.24.jar
+data-source add --name=PostgresDS --jndi-name=java:/PostgresDS --driver-class=org.postgresql.Driver --driver-name=postgresql-42.2.24.jar --user-name=user --password=password --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker --background-validation=true --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter --connection-url=jdbc:postgresql://db:5432/postgres
+deploy C:\Users\akito\server\wildfly-18.0.1.Final\standalone\deployments\app.war

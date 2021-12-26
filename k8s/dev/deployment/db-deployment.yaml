@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.23/#deploymentspec-v1-apps
+kind: Deployment
+metadata:
+  name: database
+  labels:
+    app: db-pod
+spec:
+  progressDeadlineSeconds: 60
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: db-pod
+  template:
+    metadata:
+      labels:
+        app: db-pod
+    spec:
+      containers:
+      - name: db-pod
+        image: db-ee8/sample:0.0
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_PASSWORD
+          value: password
+        - name: POSTGRES_USER
+          value: user
+        - name: POSTGRES_DB
+          value: postgres

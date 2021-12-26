@@ -27,6 +27,7 @@ public class SampleIT {
 		BodyHeader header = new BodyHeader();
 		header.setBodyHeader("bodyHeader");
 		req.setHeader(header);
+		System.out.println(resourcePath.toTemplate());
 		Entity<CommonRequest> en = Entity.entity(req, MediaType.APPLICATION_JSON);
 		Response res = target.request().header("Content-Type", MediaType.APPLICATION_JSON).post(en);
 		System.out.println(res.getEntity());
