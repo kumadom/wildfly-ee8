@@ -190,7 +190,7 @@
                   <version>42.2.24</version>
                   <type>jar</type>
                   <overWrite>true</overWrite>
-                  <outputDirectory>./server-definition</outputDirectory>
+                  <outputDirectory>./modules</outputDirectory>
                   <destFileName></destFileName>
                 </artifactItem>
               </artifactItems>
@@ -199,7 +199,6 @@
           </execution>
         </executions>
       </plugin>
-
 
       <plugin>      
         <groupId>org.apache.maven.plugins</groupId>
@@ -214,6 +213,7 @@
           </execution>
         </executions>
       </plugin>
+
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
@@ -222,7 +222,9 @@
           <target>
             <property name="fileDir" value="server-definition"/>
             <copy file="${fileDir}/standalone.xml" tofile="${jboss-home}/standalone/configuration/standalone.xml" overwrite="true"/>
-            <copy file="${fileDir}/postgresql-42.2.24.jar" tofile="${jboss-home}/standalone\deployments/postgresql-42.2.24.jar" overwrite="true"/>
+            <!-- copy data source settings-->
+            <copy file="modules/postgresql-42.2.24.jar" tofile="${jboss-home}/modules/com/postgresql/main/postgresql-42.2.24.jar" overwrite="true"/>
+            <copy file="modules/module.xml" tofile="${jboss-home}/modules/com/postgresql/main/module.xml" overwrite="true"/>
             <copy file="target/app.war" tofile="${jboss-home}/standalone\deployments/app.war" overwrite="true"/>
           </target>
         </configuration>

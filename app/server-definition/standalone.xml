@@ -181,6 +181,9 @@
             <infinispan-routing cache-container="web" cache="routing"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ee:4.0">
+            <global-modules>
+                <module name="com.postgresql" slot="main"/>
+            </global-modules>
             <spec-descriptor-property-replacement>false</spec-descriptor-property-replacement>
             <concurrent>
                 <context-services>
