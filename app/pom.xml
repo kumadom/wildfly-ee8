@@ -191,7 +191,7 @@
                   <version>42.2.24</version>
                   <type>jar</type>
                   <overWrite>true</overWrite>
-                  <outputDirectory>./modules</outputDirectory>
+                  <outputDirectory>../modules</outputDirectory>
                   <destFileName></destFileName>
                 </artifactItem>
               </artifactItems>
