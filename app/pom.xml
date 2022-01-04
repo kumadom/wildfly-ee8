@@ -224,8 +224,8 @@
             <property name="fileDir" value="server-definition"/>
             <copy file="${fileDir}/standalone.xml" tofile="${jboss-home}/standalone/configuration/standalone.xml" overwrite="true"/>
             <!-- copy data source settings-->
-            <copy file="modules/postgresql-42.2.24.jar" tofile="${jboss-home}/modules/com/postgresql/main/postgresql-42.2.24.jar" overwrite="true"/>
-            <copy file="modules/module.xml" tofile="${jboss-home}/modules/com/postgresql/main/module.xml" overwrite="true"/>
+            <copy file="../modules/postgresql-42.2.24.jar" tofile="${jboss-home}/modules/com/postgresql/main/postgresql-42.2.24.jar" overwrite="true"/>
+            <copy file="../modules/module.xml" tofile="${jboss-home}/modules/com/postgresql/main/module.xml" overwrite="true"/>
             <copy file="target/app.war" tofile="${jboss-home}/standalone\deployments/app.war" overwrite="true"/>
           </target>
         </configuration>
