@@ -227,6 +227,7 @@
             <copy file="../modules/postgresql-42.2.24.jar" tofile="${jboss-home}/modules/com/postgresql/main/postgresql-42.2.24.jar" overwrite="true"/>
             <copy file="../modules/module.xml" tofile="${jboss-home}/modules/com/postgresql/main/module.xml" overwrite="true"/>
             <copy file="target/app.war" tofile="${jboss-home}/standalone\deployments/app.war" overwrite="true"/>
+            <copy file="target/app.war" tofile="../deployments/app.war" overwrite="true"/>
           </target>
         </configuration>
         <executions>

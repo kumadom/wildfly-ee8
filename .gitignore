@@ -5,4 +5,10 @@
 /bin/
 jenkins/
 git/
+*.class
 *.jar
+*.war
+*.ear
+
+#openshift
+deployment

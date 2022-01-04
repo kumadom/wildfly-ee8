@@ -25,6 +25,6 @@ kubectl delete namespaces ee
 
 `oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk8-image-stream.json`
 
-`oc new-build jboss-eap74-openjdk8-openshift:7.4.0 https://github.com/kumadom/wildfly-ee8.git --context-dir=app`
+`oc new-build jboss-eap74-openjdk8-openshift:7.4.0 https://github.com/kumadom/wildfly-ee8.git`
 
 `oc start-build wildfly-ee8`
