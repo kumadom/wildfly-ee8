@@ -3,3 +3,5 @@ kind: Kustomization
 resources:
 - app-deployment.yaml
 - db-deployment.yaml
+- db-service.yaml
+- configmap.yaml
