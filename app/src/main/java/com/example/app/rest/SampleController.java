@@ -7,7 +7,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -18,7 +17,6 @@ import com.example.app.rest.model.SampleRequest;
 import com.example.app.rest.model.SampleResponse;
 
 
-@Path(value = "sample")
 @ApplicationScoped
 @SampleInterceptorAnnotation(eventName = "EVENT00001")
 public class SampleController {

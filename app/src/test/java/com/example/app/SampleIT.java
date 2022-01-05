@@ -10,13 +10,13 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.junit.Test;
 
-import com.example.app.rest.SampleController;
+import com.example.app.rest.SampleLocator;
 import com.example.app.rest.model.SampleRequest;
 
 public class SampleIT {
 
 	private ResteasyClient client = new ResteasyClientBuilder().build();
-	private UriBuilder resourcePath = UriBuilder.fromResource(SampleController.class).scheme("http").host("localhost").port(8080);
+	private UriBuilder resourcePath = UriBuilder.fromResource(SampleLocator.class).scheme("http").host("localhost").port(8080);
 	
 	@Test
 	public void test() {
