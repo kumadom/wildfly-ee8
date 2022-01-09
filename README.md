@@ -1,5 +1,21 @@
 # wildfly-ee8
 
+Wildflyのサンプルアプリケーションです。
+
+アプリケーションはhapp層、domain層で構成されます。
+
+```
+root_dir
+ |
+ |-app :
+ |
+ |-domain
+```
+
+アプリケーションのデプロイ環境として、ローカル環境、Docker環境、Openshift環境を想定した構成とします。
+
+
+
 ## deploy
 
 mvn --projects app clean package -Dmaven.test.skip=true
@@ -22,6 +38,7 @@ kubectl delete namespaces ee
 ## Openshift
 
 - BuildConfigのソース（入力内容）設定にバイナリーソースを設定した場合のビルド
+
 `oc replace --force -f https://raw.githubusercontent.com/jboss-container-images/jboss-eap-openshift-templates/eap74/eap74-openjdk8-image-stream.json`
 
 `oc new-build jboss-eap74-openjdk8-openshift:7.4.0~https://github.com/kumadom/wildfly-ee8.git --context-dir deliverables`
