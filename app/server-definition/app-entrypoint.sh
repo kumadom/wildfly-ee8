@@ -2,7 +2,7 @@
 
 # TODO: 直したい
 # CLIコマンドのテキストファイルを実行します
-/bin/sh /opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -c=standalone.xml &
+/opt/jboss/wildfly/bin/standalone.sh -b 0.0.0.0 -c=standalone.xml &
 sleep 10
 /opt/jboss/wildfly/bin/jboss-cli.sh --connect --file=/opt/entry/cli-commands.txt
 
