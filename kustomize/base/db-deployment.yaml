@@ -2,19 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: database
+  annotations:
+    com.example/owner: "Container A"
   labels:
-    app: db-pod
+    app: demo
+  namespace: demo
 spec:
   progressDeadlineSeconds: 60
   replicas: 1
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: db-pod
+      app: database
   template:
     metadata:
       labels:
-        app: db-pod
+        app: database
     spec:
       containers:
       - name: db-pod

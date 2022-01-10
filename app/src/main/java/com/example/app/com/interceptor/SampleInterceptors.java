@@ -23,9 +23,11 @@ public class SampleInterceptors {
 	@AroundInvoke
 	public Object intercept(InvocationContext ic) throws Exception {
 		logger.info("リソースクラスのインターセプターを開始");
-		Jsonb jsonb = JsonbBuilder.create();
-		logger.info(jsonb.toJson(ic.getParameters()[0]));
-		logger.info(String.valueOf(Thread.currentThread().getContextClassLoader().hashCode()));
+		if (ic.getParameters().length > 0) {
+			Jsonb jsonb = JsonbBuilder.create();
+			logger.info(jsonb.toJson(ic.getParameters()[0]));
+			logger.info(String.valueOf(Thread.currentThread().getContextClassLoader().hashCode()));
+		}
 		Object obj = ic.proceed();
 		logger.info("リソースクラスのインターセプターを終了");
 		return obj;

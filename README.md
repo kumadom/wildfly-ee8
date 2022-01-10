@@ -22,7 +22,7 @@ mvn --projects app clean package -Dmaven.test.skip=true
 
 docker build -t wildfly-ee8/sample:0.0 .
 
-docker build -t db-ee8/sample:0.0 .db-Dockerfile
+docker build -t db-ee8/sample:0.0 .docker\Dockerfile
 
 kubectl create namespace ee
 
@@ -31,21 +31,6 @@ kubectl apply -f k8s/dev --recursive --namespace=ee
 kubectl delete -f k8s/dev --recursive --namespace=ee
 
 kubectl delete namespaces ee
-
-## kustomize
-
-
-## k8s
-
-### リソース管理はどこまでする？
-
-1Podで利用可能なリソース（CPU、メモリ等）の上限を設定することが可能。上限を超過するような貪欲なPodに関しては強制停止することが可能。
-なお、このようなリソース消費に貪欲なPodを見過ごしてしまう場合、ノードのリソース使用量を管理することができず、一つの貪欲なPodによる
-メモリリークなどを起因にそのワーカーノードにおけるほかのPodも処理ができなくなってしまう懸念があるため、設定するのがよい。
-
-- CPU
-
-- Memory
 
 ## Openshift
 

@@ -1,7 +1,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+# settings for namespace
+- namespace.yaml
+- resource-quota.yaml
+- default-resource-limit.yaml
+# settings for application
 - app-deployment.yaml
+- app-service.yaml
+- app-disruption-budget.yaml
 - db-deployment.yaml
 - db-service.yaml
 - configmap.yaml

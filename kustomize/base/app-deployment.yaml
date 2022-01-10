@@ -3,31 +3,59 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wildfly-deployment
+  annotations:
+    com.example/owner: "Container A"
   labels:
-    app: ee
+    app: demo
+  namespace: demo
 spec:
   progressDeadlineSeconds: 60
   replicas: 3
   revisionHistoryLimit: 5
   selector:
     matchLabels:
-      app: ee
+      app: application
   template:
     metadata:
       labels:
-        app: ee
+        app: application
+      annotations:
+        com.example/owner: "Container A"
     spec:
       containers:
       - name: sample-pod
         image: wildfly-ee8/sample:0.0
+        resources: # setting resource request and limits.
+          requests:
+            memory: "100Mi"
+            cpu: "500m"
+          limits:
+            cpu: "1000m"
+            memory: "1000Mi"
         imagePullPolicy: Never
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         volumeMounts:
         - name: config
           mountPath: "/opt/jboss/wildfly/config"
           readOnly: true
+        livenessProbe: # setting managed container lifecycle with liveness and readiness probe
+          httpGet:
+            port: 8080
+            path: /healthz
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 20
+          timeoutSeconds: 3
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /healthz
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 60
+          timeoutSeconds: 3
       volumes:
-        - name: config
-          configMap:
-            name: game-demo
+      - name: config
+        configMap:
+          name: game-demo

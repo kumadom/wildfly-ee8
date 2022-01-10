@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  annotations:
+    com.example/owner: "Container A"
+  labels:
+    app: demo
+  namespace: demo
+spec:
+  selector:
+    app: application
+  ports:
+  - port: 8080
+    targetPort: 8080
