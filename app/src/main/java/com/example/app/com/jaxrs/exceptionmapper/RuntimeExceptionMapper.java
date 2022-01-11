@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
@@ -27,6 +28,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
 		logger.log(Level.SEVERE, exception.getMessage(), exception);
 		return Response.status(Status.INTERNAL_SERVER_ERROR)
 				.entity(new ErrorResponse(Arrays.asList(new ErrorDetailInfo("SYSTEM ERROR", "システムエラーが発生しました。"))))
+				.type(MediaType.APPLICATION_JSON)
 				.build();
 	}
 

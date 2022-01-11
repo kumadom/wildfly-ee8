@@ -14,6 +14,7 @@ public class SampleLocator {
 	@Path(value = "")
 	public SampleController findSubResource() {
 		System.out.println("sub resource locator come!!!!");
+		// throw new RuntimeException();
 		return subResource;
 	}
 	
