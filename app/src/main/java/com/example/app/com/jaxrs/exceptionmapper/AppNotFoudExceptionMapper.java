@@ -22,6 +22,7 @@ public class AppNotFoudExceptionMapper implements ExceptionMapper<AppNotFoundExc
 	
 	@Override
 	public Response toResponse(AppNotFoundException exception) {
+		logger.info(exception.getClass().getClass().getName().toString());
 		logger.info("処理開始");
 		return handler.handle(exception, Status.NOT_FOUND);
 	}

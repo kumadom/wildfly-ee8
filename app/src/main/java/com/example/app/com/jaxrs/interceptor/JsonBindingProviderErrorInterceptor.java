@@ -5,6 +5,8 @@ import java.text.MessageFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Priority;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
@@ -14,6 +16,7 @@ import javax.ws.rs.ext.ReaderInterceptorContext;
 import com.example.app.com.core.exception.AppBusinessException;
 
 @Provider
+@Priority(value = Priorities.ENTITY_CODER)
 public class JsonBindingProviderErrorInterceptor implements ReaderInterceptor {
 
 	private final Logger logger = Logger.getLogger(getClass().getName());

@@ -16,11 +16,6 @@ public class AppBusinessException extends RuntimeException {
 		this.errorDetails = Arrays.asList(detail);
 	}
 	
-	@Override
-	public String getMessage() {
-		throw new UnsupportedOperationException();
-	}
-	
 	public AppBusinessException addError(String errorCode, Map<String, String> args) {
 		ErrorDetail detail = new ErrorDetail(errorCode, args);
 		errorDetails.add(detail);

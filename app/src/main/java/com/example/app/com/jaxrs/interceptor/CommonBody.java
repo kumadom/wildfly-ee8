@@ -1,17 +1,16 @@
 package com.example.app.com.jaxrs.interceptor;
 
-import com.example.app.com.interceptor.BodyHeader;
-
 public class CommonBody {
 	
-	private BodyHeader header;
+	private Object appRequest;
 
-	public BodyHeader getHeader() {
-		return header;
+	public Object getAppRequest() {
+		return appRequest;
 	}
 
-	public void setHeader(BodyHeader header) {
-		this.header = header;
+	public void setAppRequest(Object appRequest) {
+		this.appRequest = appRequest;
 	}
+
 
 }

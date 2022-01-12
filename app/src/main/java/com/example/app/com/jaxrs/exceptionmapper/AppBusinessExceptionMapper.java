@@ -23,7 +23,7 @@ public class AppBusinessExceptionMapper implements ExceptionMapper<AppBusinessEx
 	@Override
 	public Response toResponse(AppBusinessException exception) {
 		
-		logger.info(getClass().getName() + "処理開始");
+		logger.info("AppBusinessExceptionMapperの処理開始");
 		return handler.handle(exception, Status.BAD_REQUEST);
 	}
 
