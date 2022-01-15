@@ -42,6 +42,8 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 //		
 		List<ErrorDetailInfo> errors = exception.getConstraintViolations().stream().map(v -> {
 			String errorCode = regex.matcher(v.getMessageTemplate()).replaceAll("");
+			logger.info(v.getMessage());
+			logger.info(Iterables.getLast(v.getPropertyPath()).getName());
 			String message = MessageFormat.format(v.getMessage(), Iterables.getLast(v.getPropertyPath()));
 			return new ErrorDetailInfo(errorCode, message);
 //			return new ErrorDetailInfo(,

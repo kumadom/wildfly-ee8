@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
+import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
@@ -20,14 +21,15 @@ import javax.ws.rs.ext.ReaderInterceptorContext;
 
 import org.apache.commons.io.IOUtils;
 
-import com.example.app.com.core.exception.AppBusinessException;
+import com.example.app.com.core.log.LoggerName;
+import com.example.app.com.core.log.LoggerNameValue;
 
 @Provider
 @Priority(Priorities.USER)
 public class CommonEntityInterceptor implements ReaderInterceptor {
 
-	private final Logger logger = Logger.getLogger(getClass().getName());	
-
+	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
+	
 	@Override
 	public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
 		logger.info("ReaderInterceptorの開始");
@@ -39,7 +41,7 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 		JsonObject obj = reader.readObject();
 		JsonValue v = obj.get("appRequest");
 		if (v == null) logger.info("Null");
-		JsonValue appRequest = Optional.ofNullable(v).orElseThrow(() -> new AppBusinessException("APYC00006", null));
+		JsonValue appRequest = Optional.ofNullable(v).orElse(obj);
 		context.setInputStream(new ByteArrayInputStream(appRequest.toString().getBytes(StandardCharsets.UTF_8)));
 
 		logger.info(appRequest.toString());

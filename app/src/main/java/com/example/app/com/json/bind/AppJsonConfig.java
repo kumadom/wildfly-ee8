@@ -21,6 +21,7 @@ public class AppJsonConfig implements ContextResolver<Jsonb> {
 	
 	@Override
 	public Jsonb getContext(Class<?> type) {
+		System.out.println("JSONのカスタム設定を行います");
 		return jsonb;
 	}
 }

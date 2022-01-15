@@ -7,6 +7,9 @@ import org.apache.commons.collections4.CollectionUtils;
 public class ErrorResponse {
 	private List<ErrorDetailInfo> errorDetailInfo;
 
+	public ErrorResponse() {
+	}
+	
 	public ErrorResponse(List<ErrorDetailInfo> errors) {
 		if (CollectionUtils.isEmpty(errors)) {
 			throw new IllegalArgumentException();

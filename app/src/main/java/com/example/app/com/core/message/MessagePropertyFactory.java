@@ -11,7 +11,7 @@ public class MessagePropertyFactory {
 	private final ResourceBundle messages;
 	
 	public MessagePropertyFactory() {
-		messages = ResourceBundle.getBundle("messages");
+		messages = ResourceBundle.getBundle("messagesCode");
 	}
 	
 	@Produces

@@ -9,6 +9,9 @@ public class ErrorDetailInfo {
 	private String errorCode;
 	private String errorMessage;
 	private List<String> errorInfo;
+	public ErrorDetailInfo() {
+		
+	}
 	public ErrorDetailInfo(String errorCode, String errorMessage, List<String> errorInfo) {
 		if (StringUtils.isAnyEmpty(errorCode, errorMessage)) {
 			throw new IllegalArgumentException();

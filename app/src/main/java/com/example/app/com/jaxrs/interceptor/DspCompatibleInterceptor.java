@@ -17,7 +17,7 @@ import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
 import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
 import com.example.app.com.jaxrs.request.model.ErrorResponse;
-import com.example.app.com.jaxrs.request.model.dsp.CommonResponseHeader;
+import com.example.app.com.jaxrs.request.model.dsp.DspCommonResponseHeader;
 import com.example.app.com.jaxrs.request.model.dsp.DspCompatibleResponse;
 
 @Provider
@@ -34,19 +34,28 @@ public class DspCompatibleInterceptor implements WriterInterceptor{
 			logger.log(Level.INFO, "共通ボディの編集処理に入りました");
 			ErrorResponse errorResponse = (ErrorResponse)o;
 			List<ErrorDetailInfo> errorDetailInfo = errorResponse.getErrorDetailInfo();
-			CommonResponseHeader commonResponseHeader = errorDetailInfo.stream().findFirst().map(e -> {
-				CommonResponseHeader cr = new CommonResponseHeader();
+			DspCommonResponseHeader commonResponseHeader = errorDetailInfo.stream().findFirst().map(e -> {
+				DspCommonResponseHeader cr = new DspCommonResponseHeader();
 				cr.setErrorCode(e.getErrorCode());
 				cr.setErrorMessage(e.getErrorMessage());
 				cr.setUserMap(e.getErrorInfo());
 				cr.setErrorDetailInfo(errorDetailInfo);
 				return cr;
-			}).orElse(new CommonResponseHeader());
+			}).orElse(new DspCommonResponseHeader());
 			DspCompatibleResponse res = new DspCompatibleResponse();
 			res.setCommonResponseHeader(commonResponseHeader);
 			context.setEntity(res);
+		}else {
+			context.setEntity(createNormalResponse(o));
 		}
 		context.proceed();
+	}
+
+	private DspCompatibleResponse createNormalResponse(Object appResponse) {
+		DspCompatibleResponse response = new DspCompatibleResponse();
+		response.setAppResponse(appResponse);
+		response.setCommonResponseHeader(new DspCommonResponseHeader());
+		return response;
 	}
 
 }
