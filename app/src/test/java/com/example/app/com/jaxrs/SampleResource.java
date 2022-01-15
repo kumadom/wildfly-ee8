@@ -5,14 +5,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.example.app.rest.model.Hoge;
+import com.example.app.rest.model.SampleModel;
 
 @Path("hoge")
 public class SampleResource {
 
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	public Hoge hoge(Hoge hoge) {
+	public SampleModel hoge(SampleModel hoge) {
 		return hoge;
 	}
 

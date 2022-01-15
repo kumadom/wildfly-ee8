@@ -13,7 +13,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
-import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.ReaderInterceptor;
@@ -23,16 +22,17 @@ import org.apache.commons.io.IOUtils;
 
 import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
+import com.example.app.com.jaxrs.constants.AppPriorities;
 
 @Provider
-@Priority(Priorities.USER)
+@Priority(AppPriorities.PRE_READ.COMMON_BODY_PROCESS)
 public class CommonEntityInterceptor implements ReaderInterceptor {
 
 	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@Override
 	public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
-		logger.info("ReaderInterceptorの開始");
+		logger.info("CommonEntityInterceptorの開始");
 
 		InputStream originalStream = context.getInputStream();
 		byte[] bytes = IOUtils.toByteArray(originalStream);
@@ -45,7 +45,7 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 		context.setInputStream(new ByteArrayInputStream(appRequest.toString().getBytes(StandardCharsets.UTF_8)));
 
 		logger.info(appRequest.toString());
-		logger.info("ReaderInterceptorの終了");
+		logger.info("CommonEntityInterceptorの終了");
 
 		return context.proceed();
 	}

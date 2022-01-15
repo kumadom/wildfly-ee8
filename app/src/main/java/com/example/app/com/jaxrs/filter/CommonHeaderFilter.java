@@ -1,10 +1,13 @@
 package com.example.app.com.jaxrs.filter;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -30,8 +33,8 @@ public class CommonHeaderFilter  implements ContainerRequestFilter, ContainerRes
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 		logger.info("CommonHeaderFilterのリクエスト処理開始");
 		CommonHeader headers = createHeader(requestContext.getHeaders());
-		//Set<ConstraintViolation<CommonHeader>> errors = validator.validate(headers);
-		//if (!errors.isEmpty()) throw new ConstraintViolationException(errors);
+		Set<ConstraintViolation<CommonHeader>> errors = validator.validate(headers);
+		if (!errors.isEmpty()) throw new ConstraintViolationException(errors);
 		logger.info("CommonHeaderFilterのリクエスト処理終了");
 	}
 

@@ -4,6 +4,8 @@ import java.util.logging.Logger;
 
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import javax.ws.rs.core.MediaType;
 
 import org.jboss.resteasy.core.Dispatcher;
@@ -17,11 +19,12 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import com.example.app.com.jaxrs.exceptionmapper.ConstraintViolationExceptionMapper;
 import com.example.app.com.jaxrs.exceptionmapper.RuntimeExceptionMapper;
 import com.example.app.com.jaxrs.filter.CommonHeaderFilter;
 import com.example.app.com.jaxrs.interceptor.CommonEntityInterceptor;
 import com.example.app.com.jaxrs.interceptor.DspCompatibleInterceptor;
-import com.example.app.rest.model.Hoge;
+import com.example.app.rest.model.SampleModel;
 
 public class JaxrsUnitTest {
 
@@ -30,9 +33,11 @@ public class JaxrsUnitTest {
 	@InjectMocks private CommonEntityInterceptor commonEntityInterceptor;
 	@InjectMocks private DspCompatibleInterceptor dspCompatibleInterceptor;
 	@InjectMocks private RuntimeExceptionMapper runtimeExceptionMapper;
+	@InjectMocks private ConstraintViolationExceptionMapper constraintViolationExceptionMapper;
 	
 	// モック関連
 	@Spy private Logger logger = Logger.getLogger("test");
+	@Spy private Validator vaidator = Validation.buildDefaultValidatorFactory().getValidator();
 
 	private AutoCloseable openMocks;
 	private Dispatcher dispatcher;
@@ -47,6 +52,7 @@ public class JaxrsUnitTest {
 		dispatcher.getProviderFactory().getServerReaderInterceptorRegistry().registerSingleton(commonEntityInterceptor);
 		dispatcher.getProviderFactory().getServerWriterInterceptorRegistry().registerSingleton(dspCompatibleInterceptor);
 		dispatcher.getProviderFactory().registerProviderInstance(runtimeExceptionMapper);
+		dispatcher.getProviderFactory().registerProviderInstance(constraintViolationExceptionMapper);
 				
 		SampleResource resource = new SampleResource();
 		dispatcher.getRegistry().addSingletonResource(resource, "/");
@@ -62,13 +68,13 @@ public class JaxrsUnitTest {
 
 		MockHttpResponse response = new MockHttpResponse();
 
-		Hoge hoge = new Hoge();
+		SampleModel hoge = new SampleModel();
 		hoge.setGooooal("goal");
 		Jsonb jsonb = JsonbBuilder.create();
 		String json = jsonb.toJson(hoge);
 
-		dispatcher.invoke(MockHttpRequest.get("/hoge").contentType(MediaType.APPLICATION_JSON).content(json.getBytes()),
-				response);
+		dispatcher.invoke(MockHttpRequest.get("/hoge").contentType(MediaType.APPLICATION_JSON)
+				.header("traceId", "00000000").content(json.getBytes()), response);
 		System.out.println(response.getContentAsString());
 		System.out.println(response.getStatus());
 	}

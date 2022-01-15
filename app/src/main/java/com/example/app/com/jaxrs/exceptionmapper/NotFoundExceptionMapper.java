@@ -22,8 +22,7 @@ public class NotFoundExceptionMapper implements ExceptionMapper<NotFoundExceptio
 
 	@Override
 	public Response toResponse(NotFoundException exception) {
-		logger.info(exception.getClass().getClass().getName().toString());
-		logger.info("処理開始");
+		logger.info("NotFoundExceptionMapperの処理開始");
 		return handler.handle(exception, Status.NOT_FOUND);
 	}
 

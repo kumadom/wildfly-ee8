@@ -1,6 +1,5 @@
 package com.example.app.com.jaxrs.exceptionmapper;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -23,10 +22,7 @@ public class ClientErrorExceptionMapper implements ExceptionMapper<ClientErrorEx
 
 	@Override
 	public Response toResponse(ClientErrorException exception) {
-		logger.info(exception.getClass().getName().toString());
-		logger.log(Level.INFO,exception.getMessage(), exception.getCause());
-		logger.info("ClientErrorExceptionMapper");
-		logger.info("処理開始");
+		logger.info("ClientErrorExceptionMapperの処理開始");
 		return handler.handle(exception, Status.BAD_GATEWAY);
 	}
 	

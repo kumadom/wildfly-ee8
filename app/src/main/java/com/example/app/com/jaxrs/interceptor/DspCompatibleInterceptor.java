@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
-import javax.ws.rs.Priorities;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.WriterInterceptor;
@@ -15,19 +14,21 @@ import javax.ws.rs.ext.WriterInterceptorContext;
 
 import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
+import com.example.app.com.jaxrs.constants.AppPriorities;
 import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
 import com.example.app.com.jaxrs.request.model.ErrorResponse;
 import com.example.app.com.jaxrs.request.model.dsp.DspCommonResponseHeader;
 import com.example.app.com.jaxrs.request.model.dsp.DspCompatibleResponse;
 
 @Provider
-@Priority(Priorities.ENTITY_CODER)
+@Priority(AppPriorities.PRE_WRITE.DSP_COMPATIBLE_PROCESS)
 public class DspCompatibleInterceptor implements WriterInterceptor{
 
 	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@Override
 	public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
+		logger.info("DspCompatibleInterceptorの開始");
 		Object o = context.getEntity();
 		logger.log(Level.INFO, o.toString());
 		if (o instanceof ErrorResponse) {
@@ -48,6 +49,7 @@ public class DspCompatibleInterceptor implements WriterInterceptor{
 		}else {
 			context.setEntity(createNormalResponse(o));
 		}
+		logger.info("DspCompatibleInterceptorの終了");
 		context.proceed();
 	}
 

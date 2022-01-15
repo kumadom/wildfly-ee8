@@ -22,25 +22,22 @@ public class SampleRequest {
 	
 	@NotNull(message = "{APYC00001}")
 	@Valid
-	private Hoge hoge;
+	private SampleModel sampleModel;
 	
-	
-	public Hoge getHoge() {
-		return hoge;
-	}
-
-	public void setHoge(Hoge hoge) {
-		this.hoge = hoge;
+	// @AssertTrue(message = "{APYC00004}")
+	@JsonbTransient
+	public boolean isCorrelationCheck() {
+		return StringUtils.isNoneEmpty(businessData, correlationData);
 	}
 
 	public String getBusinessData() {
 		return businessData;
 	}
-	
+
 	public void setBusinessData(String businessData) {
 		this.businessData = businessData;
-	}	
-	
+	}
+
 	public String getCorrelationData() {
 		return correlationData;
 	}
@@ -49,10 +46,12 @@ public class SampleRequest {
 		this.correlationData = correlationData;
 	}
 
-	// @AssertTrue(message = "{APYC00004}")
-	@JsonbTransient
-	public boolean isCorrelationCheck() {
-		return StringUtils.isNoneEmpty(businessData, correlationData);
+	public SampleModel getSampleModel() {
+		return sampleModel;
 	}
-	
+
+	public void setSampleModel(SampleModel sampleModel) {
+		this.sampleModel = sampleModel;
+	}
+
 }

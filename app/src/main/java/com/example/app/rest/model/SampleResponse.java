@@ -3,13 +3,13 @@ package com.example.app.rest.model;
 public class SampleResponse {
 	private String hoge;
 	private Integer fuga;
-	private Hoge ho = new Hoge();
+	private SampleModel ho = new SampleModel();
 	
-	public Hoge getHo() {
+	public SampleModel getHo() {
 		return ho;
 	}
 
-	public void setHo(Hoge ho) {
+	public void setHo(SampleModel ho) {
 		this.ho = ho;
 	}
 

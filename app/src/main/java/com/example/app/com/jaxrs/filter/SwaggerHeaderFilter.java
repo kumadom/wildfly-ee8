@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
-import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -15,9 +14,10 @@ import javax.ws.rs.ext.Provider;
 import com.example.app.com.RequestContext;
 import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
+import com.example.app.com.jaxrs.constants.AppPriorities;
 
 @Provider
-@Priority(Priorities.HEADER_DECORATOR + 200)
+@Priority(AppPriorities.FILTER.SWAGGER_HEADER_PROCESS)
 public class SwaggerHeaderFilter implements ContainerRequestFilter, ContainerResponseFilter {
 
 	@Inject private RequestContext con;

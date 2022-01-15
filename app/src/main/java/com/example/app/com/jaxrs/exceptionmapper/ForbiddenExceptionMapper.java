@@ -22,8 +22,7 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
 
 	@Override
 	public Response toResponse(ForbiddenException exception) {
-		logger.info(exception.getClass().getClass().getName().toString());
-		logger.info("処理開始");
+		logger.info("ForbiddenExceptionMapperの処理開始");
 		return handler.handle(exception, Status.FORBIDDEN);
 	}
 

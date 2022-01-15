@@ -1,4 +1,4 @@
-package com.example.app.com.jaxrs.interceptor;
+package com.example.app.com.core.model;
 
 public class CommonBody {
 	

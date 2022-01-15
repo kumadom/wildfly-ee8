@@ -31,26 +31,13 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 
 	@Override
 	public Response toResponse(ConstraintViolationException exception) {
-		logger.info("処理開始");
-		logger.info(getClass().getClassLoader().toString());
-		logger.info(String.valueOf(getClass().getClassLoader().hashCode()));
-		logger.info(String.valueOf(Thread.currentThread().getContextClassLoader().hashCode()));
-//		exception.getConstraintViolations().stream().forEach(v -> logger.severe(v.getMessage()));
-//		exception.getConstraintViolations().stream().forEach(v -> logger.severe(StreamSupport.stream(v.getPropertyPath().spliterator(), false)
-//				.filter(n -> ElementKind.PROPERTY == n.getKind()).map(p -> p.getName()).findFirst()
-//				.orElse("")));
-//		
+		logger.info("ConstraintViolationExceptionMapperの処理開始");
 		List<ErrorDetailInfo> errors = exception.getConstraintViolations().stream().map(v -> {
 			String errorCode = regex.matcher(v.getMessageTemplate()).replaceAll("");
 			logger.info(v.getMessage());
 			logger.info(Iterables.getLast(v.getPropertyPath()).getName());
 			String message = MessageFormat.format(v.getMessage(), Iterables.getLast(v.getPropertyPath()));
 			return new ErrorDetailInfo(errorCode, message);
-//			return new ErrorDetailInfo(,
-//					MessageFormat.format(v.getMessage(),
-//							StreamSupport.stream(v.getPropertyPath().spliterator(), false).
-//									.filter(n -> ElementKind.PROPERTY == n.getKind()).map(p -> p.getName()).findFirst()
-//									.orElse("")));
 		}).collect(Collectors.toList());
 
 		return Response.status(Status.BAD_REQUEST).type(MediaType.APPLICATION_JSON).entity(new ErrorResponse(errors))
