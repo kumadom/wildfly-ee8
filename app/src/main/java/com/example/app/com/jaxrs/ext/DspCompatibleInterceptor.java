@@ -1,4 +1,4 @@
-package com.example.app.com.jaxrs.interceptor;
+package com.example.app.com.jaxrs.ext;
 
 import java.io.IOException;
 import java.util.List;

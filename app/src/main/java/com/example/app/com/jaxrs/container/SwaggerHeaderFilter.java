@@ -1,4 +1,4 @@
-package com.example.app.com.jaxrs.filter;
+package com.example.app.com.jaxrs.container;
 
 import java.io.IOException;
 import java.util.logging.Logger;

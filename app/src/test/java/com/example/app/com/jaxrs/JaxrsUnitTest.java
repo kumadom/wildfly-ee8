@@ -19,11 +19,11 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import com.example.app.com.jaxrs.container.CommonHeaderFilter;
 import com.example.app.com.jaxrs.exceptionmapper.ConstraintViolationExceptionMapper;
 import com.example.app.com.jaxrs.exceptionmapper.RuntimeExceptionMapper;
-import com.example.app.com.jaxrs.filter.CommonHeaderFilter;
-import com.example.app.com.jaxrs.interceptor.CommonEntityInterceptor;
-import com.example.app.com.jaxrs.interceptor.DspCompatibleInterceptor;
+import com.example.app.com.jaxrs.ext.CommonEntityInterceptor;
+import com.example.app.com.jaxrs.ext.DspCompatibleInterceptor;
 import com.example.app.rest.model.SampleModel;
 
 public class JaxrsUnitTest {
