@@ -10,7 +10,6 @@ public class RestClientTestBase {
 	
 	@BeforeClass
 	public static void clientSetup() {
-		System.out.println("RestClientTestBaseの初期化処理");
 		// JAX-RSのクライアント機能をRESTEasyを利用して生成
 		client.register(new AppTestRestClientFilter());
 	}

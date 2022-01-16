@@ -75,8 +75,6 @@ public class JaxrsUnitTest {
 
 		dispatcher.invoke(MockHttpRequest.get("/hoge").contentType(MediaType.APPLICATION_JSON)
 				.header("traceId", "00000000").content(json.getBytes()), response);
-		System.out.println(response.getContentAsString());
-		System.out.println(response.getStatus());
 	}
 	
 }

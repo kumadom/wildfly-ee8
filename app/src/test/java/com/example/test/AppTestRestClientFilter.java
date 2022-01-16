@@ -50,7 +50,6 @@ public class AppTestRestClientFilter implements ClientResponseFilter, ClientRequ
 			responseData = bytes;
 			break;
 		}
-		System.out.println(new String(responseData, StandardCharsets.UTF_8));
 		responseContext.setEntityStream(new ByteArrayInputStream(responseData));
 	}
 
