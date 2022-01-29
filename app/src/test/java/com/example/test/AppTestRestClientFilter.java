@@ -55,7 +55,7 @@ public class AppTestRestClientFilter implements ClientResponseFilter, ClientRequ
 
 	@Override
 	public void filter(ClientRequestContext requestContext) throws IOException {
-		requestContext.getHeaders().add("traceId", "0000000");
+		requestContext.getHeaders().add("traceID", "0000000");
 	}
 
 }

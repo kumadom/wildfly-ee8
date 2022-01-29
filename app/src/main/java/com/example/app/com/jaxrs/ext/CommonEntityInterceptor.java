@@ -35,8 +35,9 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 		logger.info("CommonEntityInterceptorの開始");
 
 		InputStream originalStream = context.getInputStream();
+		logger.info(originalStream.toString());
 		byte[] bytes = IOUtils.toByteArray(originalStream);
-		
+		logger.info("hoge");
 		JsonReader reader = Json.createReader(new ByteArrayInputStream(bytes));
 		JsonObject obj = reader.readObject();
 		JsonValue v = obj.get("appRequest");

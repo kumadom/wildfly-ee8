@@ -4,7 +4,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
@@ -29,7 +28,7 @@ public class SampleController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response get(@Valid SampleRequest res) {
+	public Response get(SampleRequest res, SampleRequest hoge) {
 		RuntimeException ex = null;
 		logger.severe("nullnull");
 		logger.log(Level.SEVERE, "nullのテスト", ex);

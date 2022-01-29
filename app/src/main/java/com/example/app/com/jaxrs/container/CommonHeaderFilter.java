@@ -48,7 +48,10 @@ public class CommonHeaderFilter  implements ContainerRequestFilter, ContainerRes
 	
 	private CommonHeader createHeader(MultivaluedMap<String, String> requestHeaders) {
 		CommonHeader header = new CommonHeader();
-		header.setTraceId(requestHeaders.getFirst("traceId"));
+		header.setTraceId(requestHeaders.getFirst("traceID"));
+		System.out.println("--------------------------");
+		System.out.println(requestHeaders.getFirst("traceID"));
+		System.out.println("--------------------------");
 		return header;
 	}
 }

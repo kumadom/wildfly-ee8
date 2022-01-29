@@ -25,6 +25,7 @@ import com.example.app.com.jaxrs.exceptionmapper.ConstraintViolationExceptionMap
 import com.example.app.com.jaxrs.exceptionmapper.RuntimeExceptionMapper;
 import com.example.app.com.jaxrs.ext.CommonEntityInterceptor;
 import com.example.app.com.jaxrs.ext.DspCompatibleInterceptor;
+import com.example.app.com.json.bind.adapter.CustomJsonAdaptor;
 import com.example.app.rest.model.SampleModel;
 
 public class JaxrsUnitTest {
@@ -54,7 +55,8 @@ public class JaxrsUnitTest {
 		dispatcher.getProviderFactory().getServerWriterInterceptorRegistry().registerSingleton(dspCompatibleInterceptor);
 		dispatcher.getProviderFactory().registerProviderInstance(runtimeExceptionMapper);
 		dispatcher.getProviderFactory().registerProviderInstance(constraintViolationExceptionMapper);
-				
+		dispatcher.getProviderFactory().registerProviderInstance(new CustomJsonAdaptor(logger));
+		
 		SampleResource resource = new SampleResource();
 		dispatcher.getRegistry().addSingletonResource(resource, "/");
 	}
@@ -72,10 +74,14 @@ public class JaxrsUnitTest {
 		SampleModel hoge = new SampleModel();
 		hoge.setGooooal("goal");
 		Jsonb jsonb = JsonbBuilder.create();
+		System.out.println(jsonb);
 		String json = jsonb.toJson(hoge);
 
 		dispatcher.invoke(MockHttpRequest.get("/hoge").contentType(MediaType.APPLICATION_JSON)
 				.header("traceId", "00000000").content(json.getBytes()), response);
+		System.out.println(response.getStatus());
+		System.out.println(response.getContentAsString());
+		
 	}
 	
 }

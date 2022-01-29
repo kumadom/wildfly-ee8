@@ -1,5 +1,7 @@
 package com.example.app.com.jaxrs.exceptionmapper;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 import java.util.List;
 import java.util.logging.Logger;
@@ -7,12 +9,16 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
+
+import org.apache.commons.io.IOUtils;
 
 import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
@@ -25,13 +31,28 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 
 	private final Pattern regex = Pattern.compile("[{}]");
 
+	public ConstraintViolationExceptionMapper() {
+	}
+	
 	@Inject
-	@LoggerName(LoggerNameValue.SYSTEM)
+	public ConstraintViolationExceptionMapper(@LoggerName(LoggerNameValue.SYSTEM) Logger logger) {
+		this.logger = logger;
+	}
+	
+	@Context private HttpServletRequest req;
+	
 	private Logger logger;
 
 	@Override
 	public Response toResponse(ConstraintViolationException exception) {
 		logger.info("ConstraintViolationExceptionMapperの処理開始");
+		logger.info(req.toString());
+		try {
+			byte[] bytes = IOUtils.toByteArray(req.getInputStream());
+			logger.info(new String(bytes, StandardCharsets.UTF_8));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		List<ErrorDetailInfo> errors = exception.getConstraintViolations().stream().map(v -> {
 			String errorCode = regex.matcher(v.getMessageTemplate()).replaceAll("");
 			logger.info(v.getMessage());

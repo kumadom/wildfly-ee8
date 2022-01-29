@@ -1,6 +1,7 @@
 package com.example.app.com.jaxrs.exceptionmapper;
 
 import java.util.Arrays;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
@@ -23,6 +24,7 @@ public class RuntimeExceptionMapper implements ExceptionMapper<RuntimeException>
 	@Override
 	public Response toResponse(RuntimeException exception) {
 		logger.info("RuntimeExceptionMapperの処理開始");
+		logger.log(Level.SEVERE, exception.getMessage(), exception);
 		return Response.status(Status.INTERNAL_SERVER_ERROR)
 				.entity(new ErrorResponse(Arrays.asList(new ErrorDetailInfo("SYSTEM ERROR", "システムエラーが発生しました。"))))
 				.type(MediaType.APPLICATION_JSON)

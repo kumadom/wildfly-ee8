@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
+import javax.json.JsonException;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.ext.Provider;
@@ -27,7 +28,7 @@ public class JsonBindingProviderErrorInterceptor implements ReaderInterceptor {
 		try {
 			Object obj = context.proceed();
 			return obj;
-		} catch (ProcessingException e) {
+		} catch (ProcessingException | JsonException e) {
 			logger.log(Level.INFO, e.getClass().getName());
 			logger.log(Level.INFO, e.getClass().getCanonicalName());
 			logger.log(Level.INFO, e.getClass().getSimpleName());

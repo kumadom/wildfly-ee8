@@ -1,5 +1,6 @@
 package com.example.app.com.jaxrs;
 
+import javax.validation.Valid;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -12,7 +13,7 @@ public class SampleResource {
 
 	@Produces(MediaType.APPLICATION_JSON)
 	@GET
-	public SampleModel hoge(SampleModel hoge) {
+	public SampleModel hoge(@Valid SampleModel hoge) {
 		return hoge;
 	}
 

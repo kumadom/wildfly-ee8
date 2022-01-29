@@ -15,15 +15,23 @@ import com.example.app.com.core.log.LoggerNameValue;
 
 public class CustomJsonAdaptor implements JsonbAdapter<String, String> {
 
-	@Inject @LoggerName(LoggerNameValue.SYSTEM) Logger logger;
+	private Logger logger;
+	
+	public CustomJsonAdaptor() {
+		
+	}
+	
+	@Inject
+	public CustomJsonAdaptor(@LoggerName(LoggerNameValue.SYSTEM) Logger logger) {
+		this.logger = logger;
+	}
 	
 	@Override
 	public String adaptToJson(String obj) throws Exception {
-		logger.severe("OOOOOOOOOOOOOOOo");
 		Logger logger = CDI.current().select(Logger.class, new LoggerNameImp(LoggerNameValue.SYSTEM)).get();
 		String result = obj;
 		if ((StringUtils.isNoneEmpty(obj)) & (Level.FINE.intValue() >= logger.getLevel().intValue())) {
-			result = String.format("%" + String.valueOf(obj.length()) + "s", "").replace(" ", "*");
+			result = String.format("%" + String.valueOf(obj.length()) + "s", " ").replace(" ", "*");
 		}
 		return result;
 	}

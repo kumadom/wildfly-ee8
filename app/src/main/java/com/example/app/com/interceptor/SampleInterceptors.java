@@ -1,5 +1,7 @@
 package com.example.app.com.interceptor;
 
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
@@ -18,11 +20,29 @@ import com.example.app.com.core.log.LoggerNameValue;
 @SampleInterceptorAnnotation(eventName = "")
 public class SampleInterceptors {
 
-	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
+	private Logger logger;
+	// @Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
+	
+	@Inject
+	public SampleInterceptors(@LoggerName(LoggerNameValue.SYSTEM) Logger logger) {
+		this.logger = logger;
+	}
 	
 	@AroundInvoke
 	public Object intercept(InvocationContext ic) throws Exception {
 		logger.info("リソースクラスのインターセプターを開始");
+		Method method = ic.getMethod();
+		logger.info(ic.getMethod().getName());
+		Arrays.stream(method.getParameters()).forEach(p -> {
+			logger.info(p.getType().getName());
+		});
+		
+		
+		for(Object parameter : ic.getParameters()) {
+			Jsonb jsonb = JsonbBuilder.create();
+			logger.info(jsonb.toJson(ic.getParameters()[0]));
+		}
+		
 		if (ic.getParameters().length > 0) {
 			Jsonb jsonb = JsonbBuilder.create();
 			logger.info(jsonb.toJson(ic.getParameters()[0]));
