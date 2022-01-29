@@ -6,7 +6,7 @@ import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.example.app.com.json.bind.annotation.MaskInfomation;
+import com.example.app.com.json.bind.annotation.MaskedString;
 
 public class SampleRequest {
 
@@ -14,7 +14,7 @@ public class SampleRequest {
 //	@Size(min = 6, max = 6, message = "{APYC00002}")
 	// @JsonbTypeAdapter(CustomJsonAdaptor.class)
 	// @JsonbTypeSerializer(CustomJsonbSerializer.class)
-	@MaskInfomation
+	@MaskedString
 	private String businessData;
 	
 	@NotNull(message = "{APYC00001}")

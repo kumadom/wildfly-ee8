@@ -7,25 +7,29 @@ import javax.json.bind.JsonbBuilder;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response.Status;
 
+import org.assertj.core.api.Assertions;
 import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
+import org.jboss.weld.junit4.WeldInitiator;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
+import com.example.app.com.core.log.LoggerFactory;
 import com.example.app.com.jaxrs.container.CommonHeaderFilter;
 import com.example.app.com.jaxrs.exceptionmapper.ConstraintViolationExceptionMapper;
 import com.example.app.com.jaxrs.exceptionmapper.RuntimeExceptionMapper;
 import com.example.app.com.jaxrs.ext.CommonEntityInterceptor;
 import com.example.app.com.jaxrs.ext.DspCompatibleInterceptor;
-import com.example.app.com.json.bind.adapter.CustomJsonAdaptor;
 import com.example.app.rest.model.SampleModel;
 
 public class JaxrsUnitTest {
@@ -41,6 +45,9 @@ public class JaxrsUnitTest {
 	@Mock private Logger logger = Logger.getLogger("test");
 	@Spy private Validator vaidator = Validation.buildDefaultValidatorFactory().getValidator();
 
+	@ClassRule
+	public static WeldInitiator weld = WeldInitiator.from(LoggerFactory.class).build();
+	
 	private AutoCloseable openMocks;
 	private Dispatcher dispatcher;
 	
@@ -50,12 +57,11 @@ public class JaxrsUnitTest {
 		openMocks = MockitoAnnotations.openMocks(this);
 		// JAX-RSのモックをRESTEasyを利用して生成
 		dispatcher = MockDispatcherFactory.createDispatcher();
-		dispatcher.getProviderFactory().getContainerRequestFilterRegistry().registerSingleton(filter); // サーバーFilterの設定
 		dispatcher.getProviderFactory().getServerReaderInterceptorRegistry().registerSingleton(commonEntityInterceptor);
+		dispatcher.getProviderFactory().getContainerRequestFilterRegistry().registerSingleton(filter); // サーバーFilterの設定
 		dispatcher.getProviderFactory().getServerWriterInterceptorRegistry().registerSingleton(dspCompatibleInterceptor);
 		dispatcher.getProviderFactory().registerProviderInstance(runtimeExceptionMapper);
 		dispatcher.getProviderFactory().registerProviderInstance(constraintViolationExceptionMapper);
-		dispatcher.getProviderFactory().registerProviderInstance(new CustomJsonAdaptor(logger));
 		
 		SampleResource resource = new SampleResource();
 		dispatcher.getRegistry().addSingletonResource(resource, "/");
@@ -79,6 +85,7 @@ public class JaxrsUnitTest {
 
 		dispatcher.invoke(MockHttpRequest.get("/hoge").contentType(MediaType.APPLICATION_JSON)
 				.header("traceId", "00000000").content(json.getBytes()), response);
+		Assertions.assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
 		System.out.println(response.getStatus());
 		System.out.println(response.getContentAsString());
 		

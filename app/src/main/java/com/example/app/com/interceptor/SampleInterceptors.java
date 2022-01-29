@@ -21,7 +21,6 @@ import com.example.app.com.core.log.LoggerNameValue;
 public class SampleInterceptors {
 
 	private Logger logger;
-	// @Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
 	@Inject
 	public SampleInterceptors(@LoggerName(LoggerNameValue.SYSTEM) Logger logger) {

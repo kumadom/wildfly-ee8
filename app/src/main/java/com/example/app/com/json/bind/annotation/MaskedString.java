@@ -14,6 +14,6 @@ import com.example.app.com.json.bind.adapter.CustomJsonAdaptor;
 @Retention(RetentionPolicy.RUNTIME)
 @JsonbTypeAdapter(CustomJsonAdaptor.class)
 @Documented
-public @interface MaskInfomation {
+public @interface MaskedString {
 
 }
