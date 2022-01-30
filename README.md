@@ -1,6 +1,6 @@
 # wildfly-ee8
 
-Wildflyのサンプルアプリケーションです。
+JavaEE8のWildflyで構成されるWebアプリケーションの実装です。
 
 アプリケーションはhapp層、domain層で構成されます。
 

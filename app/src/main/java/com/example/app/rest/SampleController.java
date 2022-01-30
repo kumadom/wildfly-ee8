@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Produces;
@@ -11,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import com.example.app.com.core.annotation.Masking;
 import com.example.app.com.interceptor.SampleInterceptorAnnotation;
 import com.example.app.rest.model.SampleRequest;
 import com.example.app.rest.model.SampleResponse;
@@ -28,7 +30,7 @@ public class SampleController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response get(SampleRequest res, SampleRequest hoge) {
+	public Response get(@Valid @Masking SampleRequest res, SampleRequest rr) {
 		RuntimeException ex = null;
 		logger.severe("nullnull");
 		logger.log(Level.SEVERE, "nullのテスト", ex);

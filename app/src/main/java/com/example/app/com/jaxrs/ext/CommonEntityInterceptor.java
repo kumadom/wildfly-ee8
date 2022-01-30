@@ -13,8 +13,12 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
+import javax.json.bind.Jsonb;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
+import javax.ws.rs.ext.Providers;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.ReaderInterceptorContext;
 
@@ -30,10 +34,22 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 
 	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
+	@Context
+	private Providers ss;
+	
 	@Override
 	public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
 		logger.info("CommonEntityInterceptorの開始");
 
+		logger.info(ss.toString());
+		try {
+			Jsonb b = ss.getContextResolver(Jsonb.class, MediaType.APPLICATION_JSON_TYPE).getContext(null);
+			if(b != null) logger.info(b.toString());
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
 		InputStream originalStream = context.getInputStream();
 		logger.info(originalStream.toString());
 		byte[] bytes = IOUtils.toByteArray(originalStream);
