@@ -60,7 +60,9 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 		if (v == null) logger.info("Null");
 		JsonValue appRequest = Optional.ofNullable(v).orElse(obj);
 		context.setInputStream(new ByteArrayInputStream(appRequest.toString().getBytes(StandardCharsets.UTF_8)));
-
+//		logger.info(IOUtils.toString(context.getInputStream(), StandardCharsets.UTF_8));
+//		logger.info(IOUtils.toString(context.getInputStream(), StandardCharsets.UTF_8));
+//		logger.info(IOUtils.toString(context.getInputStream(), StandardCharsets.UTF_8));
 		logger.info(appRequest.toString());
 		logger.info("CommonEntityInterceptorの終了");
 

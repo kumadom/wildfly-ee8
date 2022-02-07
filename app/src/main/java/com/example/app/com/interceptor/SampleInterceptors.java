@@ -56,6 +56,7 @@ public class SampleInterceptors {
 
 		
 		Object obj = ic.proceed();
+		
 		logger.info("リソースクラスのインターセプターを終了");
 		return obj;
 	}

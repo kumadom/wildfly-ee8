@@ -1,5 +1,11 @@
 # Kubernetes関連の設定メモ
 
+## Prometheusを利用したメトリクスの取得
+
+`helm install -n prometheus prometheus prometheus-community/prometheus`
+
+
+
 ## namespaces系の設定
 
 ### Podに対するデフォルトのリソース要求、制限の設定

@@ -20,7 +20,6 @@ import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
@@ -42,7 +41,7 @@ public class JaxrsUnitTest {
 	@InjectMocks private ConstraintViolationExceptionMapper constraintViolationExceptionMapper;
 	
 	// モック関連
-	@Mock private Logger logger = Logger.getLogger("test");
+	@Spy private Logger logger = Logger.getLogger("test");
 	@Spy private Validator vaidator = Validation.buildDefaultValidatorFactory().getValidator();
 
 	@ClassRule

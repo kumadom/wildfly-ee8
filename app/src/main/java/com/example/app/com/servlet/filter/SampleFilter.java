@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.example.app.com.core.log.LoggerName;
 import com.example.app.com.core.log.LoggerNameValue;
@@ -29,6 +30,7 @@ public class SampleFilter implements Filter {
 		logger.info("Servlet Filter!!!!!");
 		HttpServletDumpWrapper wrapper = new HttpServletDumpWrapper((HttpServletRequest)request);
 		chain.doFilter(wrapper, response);
+		System.out.println(((HttpServletResponse)response).getStatus());
 	}
 
 }
