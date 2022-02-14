@@ -13,12 +13,8 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
-import javax.json.bind.Jsonb;
 import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
-import javax.ws.rs.ext.Providers;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.ReaderInterceptorContext;
 
@@ -32,28 +28,19 @@ import com.example.app.com.jaxrs.constants.AppPriorities;
 @Priority(AppPriorities.PRE_READ.COMMON_BODY_PROCESS)
 public class CommonEntityInterceptor implements ReaderInterceptor {
 
-	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
-	
-	@Context
-	private Providers ss;
+	@Inject
+	@LoggerName(LoggerNameValue.SYSTEM)
+	private Logger logger;
 	
 	@Override
 	public Object aroundReadFrom(ReaderInterceptorContext context) throws IOException, WebApplicationException {
 		logger.info("CommonEntityInterceptorの開始");
-
-		logger.info(ss.toString());
-		try {
-			Jsonb b = ss.getContextResolver(Jsonb.class, MediaType.APPLICATION_JSON_TYPE).getContext(null);
-			if(b != null) logger.info(b.toString());
-		}catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		
+		logger.info(context.toString());
 		InputStream originalStream = context.getInputStream();
 		logger.info(originalStream.toString());
 		byte[] bytes = IOUtils.toByteArray(originalStream);
 		logger.info("hoge");
+		logger.info(new String(bytes, StandardCharsets.UTF_8));
 		JsonReader reader = Json.createReader(new ByteArrayInputStream(bytes));
 		JsonObject obj = reader.readObject();
 		JsonValue v = obj.get("appRequest");
