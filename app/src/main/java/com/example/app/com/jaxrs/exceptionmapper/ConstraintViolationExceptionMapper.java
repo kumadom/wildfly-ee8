@@ -53,7 +53,7 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		List<ErrorDetailInfo> errors = exception.getConstraintViolations().stream().map(v -> {
+		final List<ErrorDetailInfo> errors = exception.getConstraintViolations().stream().map(v -> {
 			String errorCode = regex.matcher(v.getMessageTemplate()).replaceAll("");
 			logger.info(v.getMessage());
 			logger.info(Iterables.getLast(v.getPropertyPath()).getName());

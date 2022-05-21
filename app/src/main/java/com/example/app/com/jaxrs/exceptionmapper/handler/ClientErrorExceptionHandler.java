@@ -3,6 +3,7 @@ package com.example.app.com.jaxrs.exceptionmapper.handler;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +30,7 @@ public class ClientErrorExceptionHandler {
 
 	public Response handle(ClientErrorException exception, Status status) {
 		logger.info(exception.getMessage());
+		logger.log(Level.INFO, "stacktrace:", exception);
 		List<ErrorDetailInfo> errors = Arrays.asList(new ErrorDetailInfo("APYC-00001", messages.getString("APYC-00001")));
 		return Response.status(status).entity(new ErrorResponse(errors)).type(MediaType.APPLICATION_JSON).build();
 	}

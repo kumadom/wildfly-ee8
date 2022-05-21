@@ -98,7 +98,7 @@
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:8.0">
             <console-handler name="CONSOLE">
-                <level name="INFO"/>
+                <level name="FINEST"/>
                 <formatter>
                     <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
@@ -122,6 +122,9 @@
             </logger>
             <logger category="sun.rmi">
                 <level name="WARN"/>
+            </logger>
+            <logger category="org.jboss.resteasy.resteasy_jaxrs.i18n">
+            	<level name="DEBUG"/>
             </logger>
             <root-logger>
                 <level name="INFO"/>

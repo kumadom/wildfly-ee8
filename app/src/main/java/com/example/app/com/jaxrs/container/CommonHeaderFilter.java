@@ -1,14 +1,10 @@
 package com.example.app.com.jaxrs.container;
 
 import java.io.IOException;
-import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import javax.validation.Validator;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
@@ -27,14 +23,20 @@ public class CommonHeaderFilter  implements ContainerRequestFilter, ContainerRes
 
 	@Inject @LoggerName(LoggerNameValue.SYSTEM) private Logger logger;
 	
-	@Inject private Validator validator;
+	// @Inject private ValidatorFactory validatorfactory;
 
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
 		logger.info("CommonHeaderFilterのリクエスト処理開始");
+		logger.info("ヘッダー情報");
+		requestContext.getHeaders().forEach((k,v) -> System.out.println(k + v));
+		logger.info("メソッド");
+		System.out.println(requestContext.getMethod());
 		CommonHeader headers = createHeader(requestContext.getHeaders());
-		Set<ConstraintViolation<CommonHeader>> errors = validator.validate(headers);
-		if (!errors.isEmpty()) throw new ConstraintViolationException(errors);
+		
+		
+		//Set<ConstraintViolation<CommonHeader>> errors = validatorfactory.getValidator().validate(headers);
+		//if (!errors.isEmpty()) throw new ConstraintViolationException(errors);
 		logger.info("CommonHeaderFilterのリクエスト処理終了");
 	}
 

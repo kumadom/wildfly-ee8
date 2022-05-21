@@ -14,6 +14,7 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.JsonValue;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.ext.Provider;
 import javax.ws.rs.ext.ReaderInterceptor;
 import javax.ws.rs.ext.ReaderInterceptorContext;
@@ -41,16 +42,17 @@ public class CommonEntityInterceptor implements ReaderInterceptor {
 		byte[] bytes = IOUtils.toByteArray(originalStream);
 		logger.info("hoge");
 		logger.info(new String(bytes, StandardCharsets.UTF_8));
-		JsonReader reader = Json.createReader(new ByteArrayInputStream(bytes));
-		JsonObject obj = reader.readObject();
-		JsonValue v = obj.get("appRequest");
-		if (v == null) logger.info("Null");
-		JsonValue appRequest = Optional.ofNullable(v).orElse(obj);
-		context.setInputStream(new ByteArrayInputStream(appRequest.toString().getBytes(StandardCharsets.UTF_8)));
-//		logger.info(IOUtils.toString(context.getInputStream(), StandardCharsets.UTF_8));
-//		logger.info(IOUtils.toString(context.getInputStream(), StandardCharsets.UTF_8));
-//		logger.info(IOUtils.toString(context.getInputStream(), StandardCharsets.UTF_8));
-		logger.info(appRequest.toString());
+		if(MediaType.APPLICATION_JSON_TYPE.equals(context.getMediaType())) {
+			JsonReader reader = Json.createReader(new ByteArrayInputStream(bytes));
+			JsonObject obj = reader.readObject();
+			JsonValue v = obj.get("appRequest");
+			if (v == null) logger.info("Null");
+			JsonValue appRequest = Optional.ofNullable(v).orElse(obj);
+			context.setInputStream(new ByteArrayInputStream(appRequest.toString().getBytes(StandardCharsets.UTF_8)));
+			logger.info(appRequest.toString());
+		}else {
+			context.setInputStream(new ByteArrayInputStream(bytes));
+		}
 		logger.info("CommonEntityInterceptorの終了");
 
 		return context.proceed();

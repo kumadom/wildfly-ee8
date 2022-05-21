@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rsyslog-deployment
+  labels:
+    app: rsyslog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rsyslog
+  template:
+    metadata:
+      labels:
+        app: rsyslog
+    spec:
+      containers:
+      - name: rsyslog
+        image: rsyslog/syslog_appliance_alpine:latest
+        imagePullPolicy: IfNotPresent
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sysloghost
+spec:
+  selector:
+    app: rsyslog
+  ports:
+  - name: rsyslog
+    protocol: UDP
+    port: 514
+    targetPort: 514

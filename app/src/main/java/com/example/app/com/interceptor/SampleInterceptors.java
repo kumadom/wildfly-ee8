@@ -38,7 +38,7 @@ public class SampleInterceptors {
 		
 		Method method = ic.getMethod();
 		logger.info(ic.getMethod().getName());
-		
+		System.out.println("Start:SampleInterceptor");
 		for(Parameter param: method.getParameters()) {
 			if(param.isAnnotationPresent(Masking.class)) {
 				logger.info("入力情報のマスク化情報を出力します");
@@ -55,7 +55,13 @@ public class SampleInterceptors {
 		}
 
 		
-		Object obj = ic.proceed();
+		Object obj;
+		try {
+			obj = ic.proceed();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 		logger.info("リソースクラスのインターセプターを終了");
 		return obj;

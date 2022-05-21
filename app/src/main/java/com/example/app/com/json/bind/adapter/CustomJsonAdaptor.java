@@ -27,6 +27,7 @@ public class CustomJsonAdaptor implements JsonbAdapter<String, String> {
 	
 	@Override
 	public String adaptToJson(String obj) throws Exception {
+		if(logger == null) return obj;
 		String result = obj;
 		if ((StringUtils.isNoneEmpty(obj)) & (Level.FINE.intValue() >= logger.getLevel().intValue())) {
 			result = String.format("%" + String.valueOf(obj.length()) + "s", " ").replace(" ", "*");

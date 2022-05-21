@@ -22,14 +22,13 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <jboss-home>C:\Users\akito\server\wildfly-18.0.1.Final</jboss-home>
     <org.mapstruct.version>1.5.0.Beta2</org.mapstruct.version>
-</properties>
+  </properties>
 
   <dependencies>
 <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-core-spi -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.12.0</version>
     </dependency>
     <dependency>
       <groupId>commons-io</groupId>
@@ -41,6 +40,13 @@
       <version>1.1.1</version>
     </dependency>
     <!-- EE -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>8.0</version>
+      <scope>provided</scope>
+    </dependency>
+    
     <dependency>
       <groupId>javax.ws.rs</groupId>
       <artifactId>javax.ws.rs-api</artifactId>
@@ -123,6 +129,11 @@
       <groupId>org.glassfish</groupId>
       <artifactId>javax.json</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-junit4</artifactId>
+      <version>2.0.2.Final</version>
+    </dependency>
 <!-- https://mvnrepository.com/artifact/org.eclipse/yasson -->
     <dependency>
       <groupId>org.eclipse</groupId>
@@ -139,8 +150,14 @@
     <dependency>
       <groupId>net.bytebuddy</groupId>
       <artifactId>byte-buddy</artifactId>
-      <version>1.12.6</version>
-    </dependency><!-- 
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-multipart-provider</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    
+    <!-- 
     <dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-common</artifactId>
@@ -177,12 +194,25 @@
       <artifactId>swagger-annotations</artifactId>
       <version>1.5.0</version>
     </dependency>
-
+<!-- https://mvnrepository.com/artifact/org.eclipse/yasson -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jackson2-provider</artifactId>
-      <scope>test</scope>
+      <artifactId>resteasy-jaxb-provider</artifactId>
     </dependency>
+    <!-- この依存関係があると、JSON-Bでバインディングを試みる。 -->
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-json-binding-provider</artifactId>
+    </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/com.github.fge/json-patch -->
+<dependency>
+    <groupId>com.github.fge</groupId>
+    <artifactId>json-patch</artifactId>
+</dependency>
+<!-- https://mvnrepository.com/artifact/com.github.fge/msg-simple -->
+
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -245,7 +275,6 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
         <configuration>
           <source>1.8</source>
           <target>1.8</target>
