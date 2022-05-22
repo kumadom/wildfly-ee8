@@ -1,0 +1,13 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <ResponseHeader xmlns="http://soa.app.example.com/">
+      <requestId>xxxxxxxxxxxxxxxxxxxx</requestId>
+      <responseTime>1063</responseTime>
+    </ResponseHeader>
+  </soap:Header>
+  <soap:Body>
+    <getSampleResponse xmlns="http://soa.app.example.com/">
+      <return>hoge</return>
+    </getSampleResponse>
+  </soap:Body>
+</soap:Envelope>
