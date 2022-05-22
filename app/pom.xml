@@ -22,9 +22,25 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <jboss-home>C:\Users\akito\server\wildfly-18.0.1.Final</jboss-home>
     <org.mapstruct.version>1.5.0.Beta2</org.mapstruct.version>
+    <cxf.version>3.5.2</cxf.version>
   </properties>
 
   <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-frontend-jaxws</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-transports-http</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.cxf</groupId>
+      <artifactId>cxf-rt-transports-http-jetty</artifactId>
+      <version>${cxf.version}</version>
+    </dependency>
+  
 <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-core-spi -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -213,6 +229,14 @@
 <!-- https://mvnrepository.com/artifact/com.github.fge/msg-simple -->
 
     
+    <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
+    <dependency>
+      <groupId>com.github.tomakehurst</groupId>
+      <artifactId>wiremock-jre8</artifactId>
+      <version>2.33.2</version>
+      <scope>test</scope>
+    </dependency>
+    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -343,6 +367,59 @@
             <goals>
               <goal>undeploy</goal>
               <goal>shutdown</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-java2ws-plugin</artifactId>
+        <version>${cxf.version}</version>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxws</artifactId>
+            <version>${cxf.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-simple</artifactId>
+            <version>${cxf.version}</version>
+          </dependency>
+        </dependencies>
+        <executions>
+          <execution>
+            <id>process-classes</id>
+            <phase>process-classes</phase>
+            <configuration>
+                <className>com.example.app.soa.SimpleAddBean</className>
+                <genWsdl>true</genWsdl>
+                <verbose>true</verbose>
+            </configuration>
+            <goals>
+              <goal>java2ws</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.cxf</groupId>
+        <artifactId>cxf-codegen-plugin</artifactId>
+        <version>${cxf.version}</version>
+        <executions>
+          <execution>
+            <id>generate-sources</id>
+            <phase>generate-sources</phase>
+            <configuration>
+                <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
+                <wsdlOptions>
+                    <wsdlOption>
+                        <wsdl>${basedir}/src/main/resources/SimpleAddBean.wsdl</wsdl>
+                    </wsdlOption>
+                </wsdlOptions>
+            </configuration>
+            <goals>
+                <goal>wsdl2java</goal>
             </goals>
           </execution>
         </executions>
