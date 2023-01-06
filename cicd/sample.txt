@@ -1,0 +1,23 @@
+# Point to the internal API server hostname
+APISERVER=https://kubernetes.default.svc
+
+# Path to ServiceAccount token
+SERVICEACCOUNT=/var/run/secrets/kubernetes.io/serviceaccount
+
+# Read this Pod's namespace
+NAMESPACE=$(cat ${SERVICEACCOUNT}/namespace)
+
+# Read the ServiceAccount bearer token
+TOKEN=$(cat ${SERVICEACCOUNT}/token)
+
+# Reference the internal certificate authority (CA)
+CACERT=${SERVICEACCOUNT}/ca.crt
+
+# Explore the API with TOKEN
+# https://cookbook.openshift.org/users-and-role-based-access-control/how-do-i-enable-rest-api-access-for-an-application.html
+# https://kubernetes.io/docs/tasks/run-application/access-api-from-pod/
+# https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.19/
+curl --cacert ${CACERT} --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api/v1/namespaces/${NAMESPACE}/pods/curl-795f5f756d-5zjl6/log?container=istio-proxy&follow=true
+
+
+curl --header "Authorization: Bearer ${TOKEN}" -X GET ${APISERVER}/api/v1/namespaces/${NAMESPACE}/pods/curl-795f5f756d-5zjl6/log?container=istio-proxy&follow=true

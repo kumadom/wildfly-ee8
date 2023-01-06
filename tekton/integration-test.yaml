@@ -1,0 +1,17 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: integration-test
+  description: run integration test.
+spec:
+  workspaces:
+  - name: source
+  - name: local-repo
+    mountPath: /root/.m2
+  steps:
+  - name: read
+    image: maven:3.8.6-openjdk-8
+    script: | 
+      #!/usr/bin/env sh
+      cd $(workspaces.source.path)
+      mvn clean test

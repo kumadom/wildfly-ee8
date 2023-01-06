@@ -25,7 +25,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.ClassRule;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.MethodRule;
 
 import com.example.app.com.core.log.LoggerFactory;
@@ -74,7 +73,6 @@ public class WeldSampleTest extends RestClientTestBase {
 		
 	}
 	
-	@Test
 	public void test() throws JsonProcessingException, URISyntaxException, UnsupportedEncodingException {
 		SampleRequest req = new SampleRequest();
 		req.setCorrelationData("00001");

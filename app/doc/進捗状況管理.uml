@@ -1,0 +1,124 @@
+@startuml
+autoactivate on
+participant 取引インターセプター #7fffd4
+participant Controller #ffffe0
+participant Service #ffffe0
+participant BusinessLogic #ffffe0
+participant SOA共通 #ffd700
+participant "JAX-WS" #ffd700
+participant 進捗状況インターセプター #7fffd4
+participant 進捗状況管理 #7fffd4
+database 取引 #7fffd4
+database 進捗状況 #7fffd4
+
+activate 取引インターセプター
+
+取引インターセプター -> 進捗状況管理: startTransaction()
+note right
+同一のトランザクションIDが存在した場合にはエラー
+end note
+  group Transaction(REQUIRES_NEW)
+  進捗状況管理 -> 取引: insert()
+  note right
+  ステータス：処理中
+  end note
+  return
+  end group
+return
+
+取引インターセプター -> Controller
+  Controller -> Service
+    loop
+    note right
+    SOAの呼び出し、チェックロジックの呼び出し毎に実行
+    end note
+      Service -> 進捗状況インターセプター
+        進捗状況インターセプター -> 進捗状況管理: unprocessedState()
+          group Transaction(REQUIRES_NEW)
+          進捗状況管理 -> 進捗状況: insert()
+          note right
+          ステータス： 処理未済
+          end note
+          return
+          end group
+        return
+        進捗状況インターセプター -> BusinessLogic: proceed()
+          BusinessLogic -> SOA共通
+          note right
+          SOAの呼び出しがないチェックロジックのような場合には呼び出しなしも想定
+          end note
+            SOA共通 ->進捗状況管理: processingState()
+            note right
+            サービスID、SOAP実行電文の永続化
+            end note
+              group Transaction(REQUIRES_NEW)
+              進捗状況管理 -> 進捗状況: update()
+              note right
+              ステータス: 外部連携中
+              end note
+              return
+              end group
+            return
+            SOA共通 -> "JAX-WS": operation()
+            return
+
+            SOA共通 ->進捗状況管理: processingState()
+            note right
+            SOAP応答電文の永続化
+            end note
+              group Transaction(REQUIRES_NEW)
+              進捗状況管理 -> 進捗状況: update()
+              note right
+              ステータス: 外部連携完了
+              end note
+              return
+              end group
+            return
+
+
+          return
+        return
+        alt successfull case
+          進捗状況インターセプター -> 進捗状況管理: succeedState()
+            group Transaction(REQUIRES_NEW)
+            進捗状況管理 -> 進捗状況: update
+            note right
+            ステータス：完了
+            end note
+            return
+            end group
+          return
+        else failure case
+          進捗状況インターセプター -> 進捗状況管理: failState()
+            group Transaction(REQUIRES_NEW)
+            進捗状況管理 -> 進捗状況: update
+            note right
+            ステータス：異常終了
+            end note
+            return
+            end group
+          return
+        end
+      return
+    end
+  return
+alt successfull case
+  取引インターセプター -> 進捗状況管理: succeedTransaction()
+    進捗状況管理 -> 取引: update()
+    note right
+    ステータス：完了
+    end note
+    return
+  return
+else failure case
+  取引インターセプター -> 進捗状況管理: failTransaction()
+    進捗状況管理 -> 取引: update()
+    note right
+    ステータス：異常終了
+    end note
+    return
+  return
+end
+return
+deactivate 取引インターセプター
+@enduml

@@ -1,0 +1,60 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: clone-read
+spec:
+  description: | 
+    This pipeline clones a git repo, then echoes the README file to the stdout.
+
+  params:
+  - name: repo-url
+    type: string
+    description: The git repo URL to clone from.
+
+  workspaces:
+  - name: shared-data
+    description: | 
+      This workspace contains the cloned repo files, so they can be read by the
+      next task.
+  - name: git-credentials
+    description: My ssh credentials
+  - name: local-repo
+    description: maven local repository
+  tasks:
+  - name: fetch-source
+    taskRef:
+      name: git-clone
+    workspaces:
+    - name: output
+      workspace: shared-data
+    - name: ssh-directory
+      workspace: git-credentials
+    params:
+    - name: url
+      value: $(params.repo-url)
+  - name: show-readme
+    runAfter: ["fetch-source"]
+    taskRef:
+      name: show-readme
+    workspaces:
+    - name: source
+      workspace: shared-data
+  - name: integration-test
+    runAfter: ["show-readme"]
+    taskRef:
+      name: integration-test
+    workspaces:
+    - name: local-repo
+      workspace: local-repo
+    - name: source
+      workspace: shared-data
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: git-credentials
+data:
+  id_ed25519: LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUFNd0FBQUF0emMyZ3RaVwpReU5UVXhPUUFBQUNESklUejUxUWNTOEtmZEtDMmdXWlNsQVJadjA5NFVlcjNzKzhadE9FdURjZ0FBQUpoc1g1cTFiRithCnRRQUFBQXR6YzJndFpXUXlOVFV4T1FBQUFDREpJVHo1MVFjUzhLZmRLQzJnV1pTbEFSWnYwOTRVZXIzcys4WnRPRXVEY2cKQUFBRUNQZUdEMmx3bmRxd3lPeG4vNjdtNlBGRDQySlZ2QjRCdTB4RFlKMmI1VEY4a2hQUG5WQnhMd3A5MG9MYUJabEtVQgpGbS9UM2hSNnZlejd4bTA0UzROeUFBQUFFRGhyY0dabWNrQm5iV0ZwYkM1amIyMEJBZ01FQlE9PQotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0K
+
+

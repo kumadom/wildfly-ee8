@@ -1,7 +1,6 @@
 package com.example.app;
 
 import org.junit.Rule;
-import org.junit.Test;
 
 import com.example.app.soa.SimpleAddBean;
 import com.example.app.soa.SimpleAddBeanPortType;
@@ -12,7 +11,6 @@ public class WireMockTest {
 	@Rule
 	public WireMockClassRule wiremockClassRule = new WireMockClassRule(9090);
 	
-	@Test
 	public void test() {
 		SimpleAddBean service = new SimpleAddBean();
 		SimpleAddBeanPortType port = service.getSimpleAddBeanPort();

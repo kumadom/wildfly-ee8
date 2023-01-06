@@ -1,0 +1,26 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  name: clone-read-run
+spec:
+  pipelineRef:
+    name: clone-read
+  workspaces:
+  - name: shared-data
+    volumeClaimTemplate:
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+  - name: git-credentials
+    secret:
+      secretName: git-credentials
+  - name: local-repo
+    persistentVolumeClaim:
+      claimName: pv-slow-claim
+  params:
+  - name: repo-url
+    value: git@github.com:kumadom/k8s-api.git
+    
