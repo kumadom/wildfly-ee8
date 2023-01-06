@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role # Reference https://kubernetes.io/docs/reference/kubernetes-api/authorization-resources/role-v1/
+metadata:
+  name: pod-reader
+  namespace: cicd
+rules:
+- apiGroups: ["core"]
+  resources: ["pods"]
+  verbs: ["*"]
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cicd-user
+  namespace: cicd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: cicd
+subjects:
+- apiGroup: ""
+  kind: ServiceAccount
+  name: cicd-user
+  namespace: cicd
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io

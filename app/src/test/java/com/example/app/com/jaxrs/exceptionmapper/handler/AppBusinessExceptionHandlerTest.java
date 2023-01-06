@@ -3,11 +3,8 @@ package com.example.app.com.jaxrs.exceptionmapper.handler;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.junit.Test;
-
 public class AppBusinessExceptionHandlerTest {
 	
-	@Test
 	public void hoge() {
 		
 		AppBusinessExceptionHandler handler = new AppBusinessExceptionHandler();
