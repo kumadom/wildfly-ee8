@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -31,6 +32,18 @@ public class SampleFilter implements Filter {
 		HttpServletDumpWrapper wrapper = new HttpServletDumpWrapper((HttpServletRequest)request);
 		chain.doFilter(wrapper, response);
 		System.out.println(((HttpServletResponse)response).getStatus());
+	}
+
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

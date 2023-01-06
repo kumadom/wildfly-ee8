@@ -18,7 +18,7 @@ public class HealthzController {
 	
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path(value = "healthz")
 	public String healthz() {
 		return "string";

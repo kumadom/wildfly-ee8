@@ -56,6 +56,14 @@
       <version>1.1.1</version>
     </dependency>
     <!-- EE -->
+    <!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-api -->
+    <dependency>
+      <groupId>jakarta.platform</groupId>
+      <artifactId>jakarta.jakartaee-api</artifactId>
+      <version>8.0.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!--     
     <dependency>
       <groupId>javax</groupId>
       <artifactId>javaee-api</artifactId>
@@ -107,7 +115,7 @@
       <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
-    
+    -->
     <dependency>
 	  <groupId>org.hibernate</groupId>
 	  <artifactId>hibernate-validator</artifactId>
@@ -211,15 +219,17 @@
       <version>1.5.0</version>
     </dependency>
      -->
-<!-- https://mvnrepository.com/artifact/org.eclipse/yasson -->
+    <!--     
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-jaxb-provider</artifactId>
     </dependency>
+     -->
     <!-- この依存関係があると、JSON-Bでバインディングを試みる。 -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-json-binding-provider</artifactId>
+      <scope>test</scope>
     </dependency>
     
     <!-- https://mvnrepository.com/artifact/com.github.fge/json-patch -->

@@ -19,7 +19,6 @@ import org.jboss.resteasy.core.Dispatcher;
 import org.jboss.resteasy.mock.MockDispatcherFactory;
 import org.jboss.resteasy.mock.MockHttpRequest;
 import org.jboss.resteasy.mock.MockHttpResponse;
-import org.jboss.resteasy.plugins.providers.jsonb.JsonBindingProvider;
 import org.jboss.weld.junit4.WeldInitiator;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -64,7 +63,7 @@ public class WeldSampleTest extends RestClientTestBase {
 	private Dispatcher dispatcher;
 	
 	
-	JsonBindingProvider provider;
+	// JsonBindingProvider provider;
 	
 	@Before
 	public void init() {
@@ -81,7 +80,7 @@ public class WeldSampleTest extends RestClientTestBase {
 		req.setSampleModel(sampleModel);
 
 		dispatcher.getProviderFactory().getProviderInstances().forEach(o -> System.out.println(o.getClass().toString()));
-		dispatcher.getProviderFactory().getProviderInstances().stream().filter(e -> e instanceof JsonBindingProvider).forEach(e -> System.out.println(e.toString()));
+		// dispatcher.getProviderFactory().getProviderInstances().stream().filter(e -> e instanceof JsonBindingProvider).forEach(e -> System.out.println(e.toString()));
 		//dispatcher.getProviderFactory().getProviderClasses().forEach(e -> System.out.println(e.toString()));
 		//ContextResolver<Jsonb> contextResolver = providers.getContextResolver(Jsonb.class, MediaType.APPLICATION_JSON_TYPE);
 		
