@@ -4,11 +4,11 @@
 *.ear
 
 
-/target/
+target/
 .classpath
 .project
 .settings/
-/bin/
+bin/
 jenkins/
 git/
 

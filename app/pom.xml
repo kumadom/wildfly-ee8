@@ -18,8 +18,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
     <jboss-home>C:\Users\akito\server\wildfly-25.0.1.Final</jboss-home>
     <org.mapstruct.version>1.5.0.Beta2</org.mapstruct.version>
     <cxf.version>3.5.2</cxf.version>
@@ -357,7 +357,7 @@
         <configuration>
           <jbossHome>${jboss-home}</jbossHome>
           <serverConfig>standalone.xml</serverConfig>
-          <javaHome>C:\Users\akito\scoop\apps\openjdk8-redhat\current</javaHome>
+          <javaHome>C:\Users\akito\scoop\apps\openjdk17\current</javaHome>
           <scripts>
             <script>C:\Users\akito\git\wildfly-ee8\app\server-definition\local\cli-commands.txt</script>
           </scripts>
