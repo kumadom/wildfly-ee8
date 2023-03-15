@@ -8,16 +8,6 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import jakarta.inject.Inject;
-import jakarta.servlet.http.HttpServletRequest;
-import javax.validation.ConstraintViolationException;
-import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.MediaType;
-import jakarta.ws.rs.core.Response;
-import jakarta.ws.rs.core.Response.Status;
-import jakarta.ws.rs.ext.ExceptionMapper;
-import jakarta.ws.rs.ext.Provider;
-
 import org.apache.commons.io.IOUtils;
 
 import com.example.app.com.core.log.LoggerName;
@@ -26,6 +16,16 @@ import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
 import com.example.app.com.jaxrs.request.model.ErrorResponse;
 import com.google.common.collect.Iterables;
 
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.ext.Provider;
+
 @Provider
 public class ConstraintViolationExceptionMapper implements ExceptionMapper<ConstraintViolationException> {
 
@@ -33,14 +33,15 @@ public class ConstraintViolationExceptionMapper implements ExceptionMapper<Const
 
 	public ConstraintViolationExceptionMapper() {
 	}
-	
+
 	@Inject
 	public ConstraintViolationExceptionMapper(@LoggerName(LoggerNameValue.SYSTEM) Logger logger) {
 		this.logger = logger;
 	}
-	
-	@Context private HttpServletRequest req;
-	
+
+	@Context
+	private HttpServletRequest req;
+
 	private Logger logger;
 
 	@Override

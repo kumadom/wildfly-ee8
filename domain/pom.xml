@@ -32,24 +32,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- 
-    <dependency>
-      <groupId>javax.enterprise</groupId>
-      <artifactId>cdi-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>javax.transaction</groupId>
-      <artifactId>javax.transaction-api</artifactId>
-      <version>1.2</version>
-    </dependency>
-    -->
-    <!-- 
-    <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>javax.persistence-api</artifactId>
-    </dependency>
-    -->
   </dependencies>
 
 </project>

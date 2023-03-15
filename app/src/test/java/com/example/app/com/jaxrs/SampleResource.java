@@ -1,12 +1,12 @@
 package com.example.app.com.jaxrs;
 
-import javax.validation.Valid;
+import com.example.app.rest.model.SampleModel;
+
+import jakarta.validation.Valid;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-
-import com.example.app.rest.model.SampleModel;
 
 @Path("hoge")
 public class SampleResource {

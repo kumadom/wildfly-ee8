@@ -2,17 +2,17 @@ package com.example.app.com.jaxrs.exceptionmapper;
 
 import java.util.Arrays;
 
+import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
+import com.example.app.com.jaxrs.request.model.ErrorResponse;
+
 import jakarta.annotation.Priority;
 import jakarta.decorator.Decorator;
 import jakarta.decorator.Delegate;
 import jakarta.inject.Inject;
 import jakarta.interceptor.Interceptor;
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
-
-import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
-import com.example.app.com.jaxrs.request.model.ErrorResponse;
 
 @Decorator
 @Priority(Interceptor.Priority.APPLICATION)
@@ -21,11 +21,11 @@ public class DecoratorMapper implements ExceptionMapper<ConstraintViolationExcep
 	@Inject
 	@Delegate
 	private ExceptionMapper<ConstraintViolationException> mapper;
-	
+
 	@Override
 	public Response toResponse(ConstraintViolationException exception) {
 		Response res = mapper.toResponse(exception);
-		ErrorResponse response = (ErrorResponse)res.getEntity();
+		ErrorResponse response = (ErrorResponse) res.getEntity();
 		response.setErrorDetailInfo(Arrays.asList(new ErrorDetailInfo("SYSTEM ERROR", "フハハ")));
 		System.out.println("sssssssssssssssssssssssssssssssssssssssss");
 		return res;
