@@ -1,6 +1,6 @@
 package com.example.app.rest.model;
 
-import javax.json.bind.annotation.JsonbTransient;
+import jakarta.json.bind.annotation.JsonbTransient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 

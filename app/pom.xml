@@ -20,13 +20,14 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
-    <jboss-home>C:\Users\akito\server\wildfly-25.0.1.Final</jboss-home>
+    <jboss-home>C:\Users\akito\server\wildfly-27.0.1.Final</jboss-home>
     <org.mapstruct.version>1.5.0.Beta2</org.mapstruct.version>
     <cxf.version>3.5.2</cxf.version>
   </properties>
 
   <dependencies>
     <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
+    <!-- 
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-frontend-jaxws</artifactId>
@@ -35,12 +36,14 @@
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-transports-http</artifactId>
     </dependency>
+    -->
+    <!-- 
     <dependency>
       <groupId>org.apache.cxf</groupId>
       <artifactId>cxf-rt-transports-http-jetty</artifactId>
       <version>${cxf.version}</version>
     </dependency>
-  
+    -->
 <!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-core-spi -->
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -50,6 +53,19 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
     </dependency>
+<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>31.1-jre</version>
+    </dependency>
+<!-- https://mvnrepository.com/artifact/jakarta.xml.ws/jakarta.xml.ws-api -->
+<dependency>
+    <groupId>jakarta.xml.ws</groupId>
+    <artifactId>jakarta.xml.ws-api</artifactId>
+    <version>4.0.0</version>
+</dependency>
+
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
@@ -60,7 +76,7 @@
     <dependency>
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-api</artifactId>
-      <version>8.0.0</version>
+      <version>10.0.0</version>
       <scope>provided</scope>
     </dependency>
     <!--     
@@ -128,35 +144,44 @@
       <version>1.9</version>
     </dependency>
     <dependency>
+      <groupId>commons-codec</groupId>
+      <artifactId>commons-codec</artifactId>
+    </dependency>
+    <dependency>
         <groupId>org.mapstruct</groupId>
         <artifactId>mapstruct</artifactId>
         <version>${org.mapstruct.version}</version>
-    </dependency>    
+    </dependency>
     <!-- Test library -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-client</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- 
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-jaxrs</artifactId>
       <scope>test</scope>
     </dependency>
+    -->
      <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>4.2.0</version>
       <scope>test</scope>
     </dependency>
+    <!-- 
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>javax.json</artifactId>
     </dependency>
+    -->
     <dependency>
       <groupId>org.jboss.weld</groupId>
       <artifactId>weld-junit4</artifactId>
-      <version>2.0.2.Final</version>
+      <version>4.0.0.Final</version>
+      <scope>test</scope>
     </dependency>
 <!-- https://mvnrepository.com/artifact/org.eclipse/yasson -->
     <dependency>
@@ -233,10 +258,11 @@
     </dependency>
     
     <!-- https://mvnrepository.com/artifact/com.github.fge/json-patch -->
-<dependency>
-    <groupId>com.github.fge</groupId>
-    <artifactId>json-patch</artifactId>
-</dependency>
+    <dependency>
+      <groupId>com.github.fge</groupId>
+      <artifactId>json-patch</artifactId>
+      <version>1.9</version>
+    </dependency>
 <!-- https://mvnrepository.com/artifact/com.github.fge/msg-simple -->
 
     
@@ -248,12 +274,6 @@
       <scope>test</scope>
     </dependency>
     
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
     <dependency>
       <groupId>com.example.domain</groupId>
       <artifactId>domain</artifactId>
@@ -399,6 +419,7 @@
           </dependency>
         </dependencies>
         <executions>
+          <!-- 
           <execution>
             <id>process-classes</id>
             <phase>process-classes</phase>
@@ -411,6 +432,7 @@
               <goal>java2ws</goal>
             </goals>
           </execution>
+          -->
         </executions>
       </plugin>
       <plugin>
@@ -418,6 +440,7 @@
         <artifactId>cxf-codegen-plugin</artifactId>
         <version>${cxf.version}</version>
         <executions>
+          <!-- 
           <execution>
             <id>generate-sources</id>
             <phase>generate-sources</phase>
@@ -433,6 +456,7 @@
                 <goal>wsdl2java</goal>
             </goals>
           </execution>
+          -->
         </executions>
       </plugin>
     </plugins>

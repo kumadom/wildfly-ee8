@@ -2,14 +2,14 @@ package com.example.app.com.jaxrs.exceptionmapper;
 
 import java.util.Arrays;
 
-import javax.annotation.Priority;
-import javax.decorator.Decorator;
-import javax.decorator.Delegate;
-import javax.inject.Inject;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.decorator.Decorator;
+import jakarta.decorator.Delegate;
+import jakarta.inject.Inject;
+import jakarta.interceptor.Interceptor;
 import javax.validation.ConstraintViolationException;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.ext.ExceptionMapper;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.ext.ExceptionMapper;
 
 import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
 import com.example.app.com.jaxrs.request.model.ErrorResponse;

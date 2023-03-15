@@ -1,12 +1,12 @@
 package com.example.test;
 
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
-import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
+import org.jboss.resteasy.client.jaxrs.internal.ResteasyClientBuilderImpl;
 import org.junit.BeforeClass;
 
 public class RestClientTestBase {
 
-	protected static ResteasyClient client = new ResteasyClientBuilder().build();
+	protected static ResteasyClient client = new ResteasyClientBuilderImpl().build();
 	
 	@BeforeClass
 	public static void clientSetup() {

@@ -6,15 +6,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import javax.json.Json;
-import javax.ws.rs.HttpMethod;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
-
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -27,8 +18,13 @@ import com.example.app.rest.SampleController;
 import com.example.app.rest.model.SampleModel;
 import com.example.app.rest.model.SampleRequest;
 import com.example.test.RestClientTestBase;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.jsonpatch.JsonPatch;
+
+import jakarta.ws.rs.client.Entity;
+import jakarta.ws.rs.core.GenericEntity;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response.Status;
+import jakarta.ws.rs.core.UriBuilder;
 
 public class SampleIT extends RestClientTestBase {
 
@@ -71,11 +67,12 @@ public class SampleIT extends RestClientTestBase {
 		GenericEntity<MultipartFormDataOutput> data = new GenericEntity<MultipartFormDataOutput>(formOutputData) {
 		};
 
-		//Response response = wt.request().build(null).invoke(null) .post(Entity.entity(data, MediaType.MULTIPART_FORM_DATA_TYPE));
+		// Response response = wt.request().build(null).invoke(null)
+		// .post(Entity.entity(data, MediaType.MULTIPART_FORM_DATA_TYPE));
 		MultipartFormDataInput multi = wt.request().buildPost(Entity.entity(data, MediaType.MULTIPART_FORM_DATA_TYPE))
 				.invoke(MultipartFormDataInput.class);
 		Map<String, List<InputPart>> hoge = multi.getFormDataMap();
-		hoge.forEach((t,u) -> {
+		hoge.forEach((t, u) -> {
 			try {
 				System.out.println(u.get(0).getBodyAsString());
 			} catch (IOException e) {
@@ -83,34 +80,8 @@ public class SampleIT extends RestClientTestBase {
 				e.printStackTrace();
 			}
 		});
-		//Assertions.assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
-		
+		// Assertions.assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
+
 	}
 
-	@Test
-	public void sampleTest003() {
-		// UriBuilder path = UriBuilder.fromResource(PatchController.class).scheme("http").host("localhost").port(8080);
-		ResteasyWebTarget wt = client.target("http://localhost:8080/patch");
-		ObjectMapper mapper = new ObjectMapper();
-		
-		
-        javax.json.JsonArray patchRequest = Json.createArrayBuilder()
-        .add(Json.createObjectBuilder().add("op", "remove").add("path", "/gooooal").build())
-        .build();
-        System.out.println(patchRequest.toString());
-        try {
-        	JsonPatch patch = JsonPatch.fromJson(mapper.readTree(patchRequest.toString()));
-        	
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-//        JsonObject patchRequest = Json.createObjectBuilder().add("op", "copy").add("from", "/firstName").add("path", "/lastName").build();
-
-		wt.request().header("Content-Type", MediaType.APPLICATION_JSON_PATCH_JSON)
-				.build(HttpMethod.PATCH, Entity.entity(patchRequest.toString(), MediaType.APPLICATION_JSON_PATCH_JSON))
-				.invoke();
-	
-	}
-	
 }

@@ -1,6 +1,6 @@
 package com.example.app.com.interceptor.constants;
 
-import javax.interceptor.Interceptor;
+import jakarta.interceptor.Interceptor;
 
 public class InterceptorPriorities {
 	

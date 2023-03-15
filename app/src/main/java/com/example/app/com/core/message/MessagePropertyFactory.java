@@ -2,8 +2,8 @@ package com.example.app.com.core.message;
 
 import java.util.ResourceBundle;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.inject.Produces;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.inject.Produces;
 
 @ApplicationScoped
 public class MessagePropertyFactory {
