@@ -39,7 +39,7 @@ public class SampleIT extends RestClientTestBase {
 
 	@Test
 	public void sampleTest001() throws InterruptedException {
-		Thread.sleep(15000);
+		// Thread.sleep(15000);
 		// テストデータの準備
 		SampleRequest req = new SampleRequest();
 		req.setCorrelationData("00001");
