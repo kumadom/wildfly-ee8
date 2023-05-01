@@ -4,12 +4,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.logging.Logger;
 
-import javax.annotation.Priority;
-import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
-import javax.json.bind.Jsonb;
+import jakarta.annotation.Priority;
+import jakarta.inject.Inject;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InvocationContext;
+import jakarta.json.bind.Jsonb;
 
 import com.example.app.com.core.annotation.Masking;
 import com.example.app.com.core.log.LoggerName;

@@ -1,6 +1,6 @@
 package com.example.app.com.servlet;
 
-import javax.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServlet;
 
 // @WebServlet("/api")
 public class SampleServlet extends HttpServlet {

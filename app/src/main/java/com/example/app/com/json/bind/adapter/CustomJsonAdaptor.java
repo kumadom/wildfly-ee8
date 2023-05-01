@@ -3,9 +3,9 @@ package com.example.app.com.json.bind.adapter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.util.AnnotationLiteral;
-import javax.inject.Inject;
-import javax.json.bind.adapter.JsonbAdapter;
+import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.inject.Inject;
+import jakarta.json.bind.adapter.JsonbAdapter;
 
 import org.apache.commons.lang3.StringUtils;
 

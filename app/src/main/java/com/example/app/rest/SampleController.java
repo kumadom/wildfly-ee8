@@ -2,50 +2,49 @@ package com.example.app.rest;
 
 import java.util.logging.Logger;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.validation.Valid;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import com.example.app.com.core.annotation.Masking;
 import com.example.app.com.interceptor.ExceptionHandling;
 import com.example.app.com.interceptor.SampleInterceptorAnnotation;
 import com.example.app.rest.model.SampleRequest;
 import com.example.domain.service.SampleService;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+
 @ApplicationScoped
 @ExceptionHandling
 @SampleInterceptorAnnotation(eventName = "EVENT00001")
 @Path(value = "sample")
 public class SampleController {
-	
+
 	@Inject
 	private SampleService service;
-	
+
 //	private DecoratorIF dec;
-	
+
 //	@Inject
 //	public SampleController(DecoratorIF dec) {
 //		this.dec = dec;
 //	}
-	
+
 	public SampleController() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Inject
 	public SampleController(SampleService service) {
 		this.service = service;
 	}
-	
+
 	private final Logger logger = Logger.getLogger(getClass().getName());
-	
-	
+
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
@@ -112,5 +111,5 @@ public class SampleController {
 //		re.setHoge("");
 //		return Response.ok().entity(re).build();
 	}
-	
+
 }

@@ -1,10 +1,10 @@
 package com.example.app.rest.service;
 
-import javax.annotation.Priority;
-import javax.decorator.Decorator;
-import javax.decorator.Delegate;
-import javax.inject.Inject;
-import javax.interceptor.Interceptor;
+import jakarta.annotation.Priority;
+import jakarta.decorator.Decorator;
+import jakarta.decorator.Delegate;
+import jakarta.inject.Inject;
+import jakarta.interceptor.Interceptor;
 
 @Decorator
 @Priority(Interceptor.Priority.APPLICATION)

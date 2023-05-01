@@ -3,9 +3,9 @@ package com.example.domain.service;
 import java.util.Random;
 import java.util.logging.Logger;
 
-import javax.enterprise.context.Dependent;
-import javax.transaction.Transactional;
-import javax.transaction.Transactional.TxType;
+import jakarta.enterprise.context.Dependent;
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 import com.example.domain.db.SampleEntity;
 

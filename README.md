@@ -1,5 +1,7 @@
 # wildfly-ee8
 
+docker run -d -p 5432:5432 db-ee8/sample:0.0
+
 JavaEE8のWildflyで構成されるWebアプリケーションの実装です。
 
 アプリケーションはhapp層、domain層で構成されます。

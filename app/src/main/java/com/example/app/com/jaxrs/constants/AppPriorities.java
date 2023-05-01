@@ -1,6 +1,6 @@
 package com.example.app.com.jaxrs.constants;
 
-import javax.ws.rs.Priorities;
+import jakarta.ws.rs.Priorities;
 
 public class AppPriorities {
 	private AppPriorities() {

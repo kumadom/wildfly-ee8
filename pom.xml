@@ -12,8 +12,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.17</maven.compiler.source>
+    <maven.compiler.target>1.17</maven.compiler.target>
+    <version.server.bom>8.0.0.Beta-redhat-00004</version.server.bom>
   </properties>
   
   <repositories>
@@ -31,30 +32,39 @@
         <updatePolicy>never</updatePolicy>
       </snapshots>
     </repository>
+    <repository>
+      <id>redhat-ea-maven-repository</id>
+      <name>Red Hat Early Access Maven Repository</name>
+      <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </snapshots>
+      <layout>default</layout>
+    </repository>
   </repositories>
 
   <dependencyManagement>
     <dependencies>
+      <!-- importing the jakartaee-with-tools BOM adds specs and other useful artifacts as managed dependencies -->
       <dependency>
         <groupId>org.jboss.bom</groupId>
-        <artifactId>eap-runtime-artifacts</artifactId>
-        <version>7.2.0.GA</version>
+        <artifactId>jboss-eap-ee-with-tools</artifactId>
+        <version>${version.server.bom}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>
-
+  
   <dependencies>
-    <dependency>
-	  <groupId>org.jboss.resteasy</groupId>
-	  <artifactId>resteasy-jaxrs</artifactId>
-    </dependency>
-    
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
       <scope>test</scope>
     </dependency>
     <dependency>
