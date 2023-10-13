@@ -1,7 +1,11 @@
 package com.example.app.com.servlet.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.logging.Logger;
+
+import com.example.app.com.core.log.LoggerName;
+import com.example.app.com.core.log.LoggerNameValue;
 
 import jakarta.inject.Inject;
 import jakarta.servlet.Filter;
@@ -12,9 +16,6 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import com.example.app.com.core.log.LoggerName;
-import com.example.app.com.core.log.LoggerNameValue;
 
 public class SampleFilter implements Filter {
 
@@ -29,7 +30,16 @@ public class SampleFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 		logger.info("Servlet Filter!!!!!");
-		HttpServletDumpWrapper wrapper = new HttpServletDumpWrapper((HttpServletRequest)request);
+
+		HttpServletRequest httpRequest = (HttpServletRequest)request;
+		Enumeration<String>headerNames = httpRequest.getHeaderNames();
+	    if (headerNames != null) {
+            while (headerNames.hasMoreElements()) {
+            	String headerName = headerNames.nextElement();
+            	System.out.println("HeaderName: " +headerName + ", HeaderValue: " + httpRequest.getHeader(headerName));
+            }
+	    }
+	    HttpServletDumpWrapper wrapper = new HttpServletDumpWrapper((HttpServletRequest)request);
 		chain.doFilter(wrapper, response);
 		System.out.println(((HttpServletResponse)response).getStatus());
 	}

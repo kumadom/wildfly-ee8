@@ -1,4 +1,4 @@
-FROM jboss/wildfly:18.0.0.Final
+FROM quay.io/wildfly/wildfly:27.0.0.Final-jdk17
 
 # 各種ファイル移送
 COPY ./deliverables/modules/ ${JBOSS_HOME}/modules/
