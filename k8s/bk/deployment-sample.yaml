@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pvc-slow-test
+  namespace: pvc-sample
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: alpine
+        name: alpine
+        command: ["tail", "-f", "/dev/null"]
+        volumeMounts:
+        - name: claim-volume
+          mountPath: /data
+      volumes:
+      - name: claim-volume
+        persistentVolumeClaim:
+          claimName: pvc-manifest
+      terminationGracePeriodSeconds: 0

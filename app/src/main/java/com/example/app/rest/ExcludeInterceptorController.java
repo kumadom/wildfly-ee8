@@ -19,6 +19,7 @@ public class ExcludeInterceptorController {
 
 	@GET
 	public void hoge() {
+		System.out.println("START!!!　EXCLUDE");
 		System.out.println("----------------------------------------");
 		System.out.println("----------------------------------------");
 		System.out.println("----------------------------------------");

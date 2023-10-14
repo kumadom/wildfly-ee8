@@ -1,4 +1,0 @@
-/subsystem=datasources/jdbc-driver=postgresql.jar:add(driver-name=postgresql.jar,driver-module-name=com.postgresql,driver-class-name=org.postgresql.Driver)
-# deploy /opt/jboss/wildfly/standalone/deployments/postgresql-42.2.24.jar
-data-source add --name=PostgresDS --jndi-name=java:/PostgresDS --driver-class=org.postgresql.Driver --driver-name=postgresql.jar --user-name=user --password=password --valid-connection-checker-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLValidConnectionChecker --background-validation=true --exception-sorter-class-name=org.jboss.jca.adapters.jdbc.extensions.postgres.PostgreSQLExceptionSorter --connection-url=jdbc:postgresql://db:5432/postgres
-deploy /opt/jboss/wildfly/standalone/deployments/app.war

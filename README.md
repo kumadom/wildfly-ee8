@@ -1,6 +1,9 @@
 # wildfly-ee8
 
-docker run -d -p 5432:5432 db-ee8/sample:0.0
+docker run --restart unless-stopped -d -p 5432:5432 db-ee8/sample:0.0
+
+docker run --rm -d -p 8080:8080 wildfly-ee8/sample:0.0
+
 
 JavaEE8のWildflyで構成されるWebアプリケーションの実装です。
 
@@ -18,13 +21,26 @@ root_dir
 
 
 
+## iptablesの仕組み
+kubectl exec --namespace=kube-system -it pod/kube-proxy-2dgg6 -- sh
+iptables -nL -t nat --line-numbers
+
+## 分散トレーシング
+docker run --rm -it --name jaeger -p 16686:16686 -p 14250:14250 jaegertracing/all-in-one:1.18
+
+# クラスタの作成方法
+kind create cluster --name wildfly --config context.yaml 
+
 ## deploy
 
 mvn --projects app clean package -Dmaven.test.skip=true
 
-docker build -t wildfly-ee8/sample:0.0 .
-
+docker build -t wildfly-ee8/sample:0.1.0 .
 docker build -t db-ee8/sample:0.0 .docker\Dockerfile
+
+- kindの場合、kindのクラスタにビルドしたイメージをロードする。
+kind load docker-image wildfly-ee8/sample:0.1.0 --name kind
+
 
 kubectl create namespace ee
 

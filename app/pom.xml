@@ -2,49 +2,36 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <artifactId>wildfly-ee8</artifactId>
+    <artifactId>wildfly-paret</artifactId>
     <groupId>com.example</groupId>
-    <version>1.0.0-SNAPSHOT</version>
-    <relativePath>../</relativePath>
+    <version>1.0.0</version>
   </parent>
 
-  <groupId>com.example.app</groupId>
   <artifactId>app</artifactId>
-  <packaging>war</packaging>
-
-  <name>app Maven Webapp</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <packaging>jar</packaging>
+  <name>Example: app</name>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <jboss-home>C:\Users\akito\server\wildfly-27.0.1.Final</jboss-home>
     <org.mapstruct.version>1.5.0.Beta2</org.mapstruct.version>
-    <cxf.version>3.5.2</cxf.version>
   </properties>
 
   <dependencies>
-    <!-- https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxws -->
-    <!-- 
     <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-frontend-jaxws</artifactId>
+      <groupId>com.example</groupId>
+      <artifactId>domain</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-transports-http</artifactId>
+      <groupId>jakarta.xml.ws</groupId>
+      <artifactId>jakarta.xml.ws-api</artifactId>
+      <version>4.0.0</version>
     </dependency>
-    -->
-    <!-- 
     <dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-transports-http-jetty</artifactId>
-      <version>${cxf.version}</version>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>jaxws-rt</artifactId>
+      <version>4.0.0</version>
+      <scope>runtime</scope>
     </dependency>
-    -->
-<!-- https://mvnrepository.com/artifact/org.jboss.resteasy/resteasy-core-spi -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
@@ -53,26 +40,16 @@
       <groupId>commons-io</groupId>
       <artifactId>commons-io</artifactId>
     </dependency>
-<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>31.1-jre</version>
     </dependency>
-<!-- https://mvnrepository.com/artifact/jakarta.xml.ws/jakarta.xml.ws-api -->
-<dependency>
-    <groupId>jakarta.xml.ws</groupId>
-    <artifactId>jakarta.xml.ws-api</artifactId>
-    <version>4.0.0</version>
-</dependency>
-
     <dependency>
       <groupId>commons-logging</groupId>
       <artifactId>commons-logging</artifactId>
       <version>1.1.1</version>
     </dependency>
-    <!-- EE -->
-    <!-- https://mvnrepository.com/artifact/jakarta.platform/jakarta.jakartaee-api -->
     <dependency>
       <groupId>jakarta.platform</groupId>
       <artifactId>jakarta.jakartaee-api</artifactId>
@@ -95,48 +72,37 @@
       <artifactId>commons-codec</artifactId>
     </dependency>
     <dependency>
-        <groupId>org.mapstruct</groupId>
-        <artifactId>mapstruct</artifactId>
-        <version>${org.mapstruct.version}</version>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>${org.mapstruct.version}</version>
     </dependency>
-    <!-- Test library -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-client</artifactId>
       <scope>test</scope>
+      <exclusions>
+          <exclusion>
+              <groupId>org.jboss.resteasy</groupId>
+              <artifactId>resteasy-core</artifactId>
+          </exclusion>
+      </exclusions>
     </dependency>
-    <!-- 
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxrs</artifactId>
-      <scope>test</scope>
-    </dependency>
-    -->
      <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
-      <version>5.2.0</version>
       <scope>test</scope>
     </dependency>
-    <!-- 
-    <dependency>
-      <groupId>org.glassfish</groupId>
-      <artifactId>javax.json</artifactId>
-    </dependency>
-    -->
     <dependency>
       <groupId>org.jboss.weld</groupId>
       <artifactId>weld-junit4</artifactId>
       <version>4.0.0.Final</version>
       <scope>test</scope>
     </dependency>
-<!-- https://mvnrepository.com/artifact/org.eclipse/yasson -->
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>yasson</artifactId>
       <scope>test</scope>
     </dependency>
-<!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
@@ -148,265 +114,28 @@
       <artifactId>resteasy-multipart-provider</artifactId>
       <scope>provided</scope>
     </dependency>
-    
-    <!-- 
-    <dependency>
-      <groupId>org.glassfish.jersey.core</groupId>
-      <artifactId>jersey-common</artifactId>
-      <version>2.35</version>
-    </dependency>
- -->
-<!-- 
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>jaxrs-api</artifactId>
-      <version>3.0.5.Final</version>
-      <scope>test</scope>
-    </dependency>
- -->
-    <!-- Swagger Core
-    <dependency>
-      <groupId>io.swagger.core.v3</groupId>
-      <artifactId>swagger-jaxrs2</artifactId>
-      <version>2.1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-core</artifactId>
-      <version>1.6.3</version>
-    </dependency>
-    
-    <dependency>
-      <groupId>io.swagger.core.v3</groupId>
-      <artifactId>swagger-jaxrs2-servlet-initializer-v2</artifactId>
-      <version>2.1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>1.5.0</version>
-    </dependency>
-     -->
-    <!--     
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxb-provider</artifactId>
-    </dependency>
-     -->
     <!-- この依存関係があると、JSON-Bでバインディングを試みる。 -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-json-binding-provider</artifactId>
       <scope>test</scope>
     </dependency>
-    
-    <!-- https://mvnrepository.com/artifact/com.github.fge/json-patch -->
     <dependency>
       <groupId>com.github.fge</groupId>
       <artifactId>json-patch</artifactId>
       <version>1.9</version>
     </dependency>
-<!-- https://mvnrepository.com/artifact/com.github.fge/msg-simple -->
-
-    
-    <!-- https://mvnrepository.com/artifact/com.github.tomakehurst/wiremock-jre8 -->
     <dependency>
       <groupId>com.github.tomakehurst</groupId>
       <artifactId>wiremock-jre8</artifactId>
       <version>2.33.2</version>
       <scope>test</scope>
     </dependency>
-    
     <dependency>
-      <groupId>com.example.domain</groupId>
-      <artifactId>domain</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <groupId>com.sun.xml.ws</groupId>
+      <artifactId>rt</artifactId>
+      <version>2.3.1</version>
     </dependency>
   </dependencies>
 
-  <build>
-    <finalName>app</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-dependency-plugin</artifactId>
-        <version>3.2.0</version>
-        <executions>
-          <execution>
-            <id>copy</id>
-            <phase>package</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-              <artifactItems>
-                <artifactItem>
-                  <groupId>org.postgresql</groupId>
-                  <artifactId>postgresql</artifactId>
-                  <version>42.2.24</version>
-                  <type>jar</type>
-                  <overWrite>true</overWrite>
-                  <outputDirectory>../deliverables/modules/com/postgresql/main</outputDirectory>
-                  <destFileName>postgresql.jar</destFileName>
-                </artifactItem>
-              </artifactItems>
-              <!-- other configurations here -->
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <plugin>      
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>3.0.0-M5</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-          <annotationProcessorPaths>
-            <path>
-              <groupId>org.mapstruct</groupId>
-              <artifactId>mapstruct-processor</artifactId>
-              <version>${org.mapstruct.version}</version>
-            </path>
-          </annotationProcessorPaths>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>3.0.0</version>
-        <configuration>
-          <target>
-            <property name="fileDir" value="server-definition"/>
-            <!-- Copy setting file for local start -->
-            <copy file="${fileDir}/standalone.xml" tofile="${jboss-home}/standalone/configuration/standalone.xml" overwrite="true"/>
-            <copy file="../deliverables/modules/com/postgresql/main/postgresql.jar" tofile="${jboss-home}/modules/com/postgresql/main/postgresql.jar" overwrite="true"/>
-            <copy file="../deliverables/modules/com/postgresql/main/module.xml" tofile="${jboss-home}/modules/com/postgresql/main/module.xml" overwrite="true"/>
-            <copy file="target/app.war" tofile="${jboss-home}/standalone\deployments/app.war" overwrite="true"/>
-            <!-- copy data source settings-->
-            <copy file="target/app.war" tofile="../deliverables/deployments/app.war" overwrite="true"/>
-            <copy file="${fileDir}/standalone.xml" tofile="../deliverables/configuration/standalone-openshift.xml" overwrite="true"/>
-          </target>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-        <inherited>false</inherited>
-      </plugin>
-      <plugin>
-        <groupId>org.wildfly.plugins</groupId>
-        <artifactId>wildfly-maven-plugin</artifactId>
-        <version>4.1.0.Beta3</version>
-        
-        <configuration>
-          
-          <jbossHome>${jboss-home}</jbossHome>
-          <serverConfig>standalone.xml</serverConfig>
-          <javaHome>C:\Users\akito\scoop\apps\openjdk17\current</javaHome>
-          <debug>true</debug>
-          <startupTimeout>600</startupTimeout>
-          <scripts>
-            <script>C:\Users\akito\git\wildfly-ee8\app\server-definition\local\cli-commands.txt</script>
-          </scripts>
-        </configuration>
-        <executions>
-          <execution>
-            <id>deploy</id>
-            <phase>pre-integration-test</phase>
-            <goals>
-              <goal>start</goal>
-              <!-- <goal>execute-commands</goal> -->
-              <goal>deploy</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>undeploy</id>
-            <phase>post-integration-test</phase>
-            <goals>
-              <goal>undeploy</goal>
-              <goal>shutdown</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-java2ws-plugin</artifactId>
-        <version>${cxf.version}</version>
-        <dependencies>
-          <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-jaxws</artifactId>
-            <version>${cxf.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-frontend-simple</artifactId>
-            <version>${cxf.version}</version>
-          </dependency>
-        </dependencies>
-        <executions>
-          <!-- 
-          <execution>
-            <id>process-classes</id>
-            <phase>process-classes</phase>
-            <configuration>
-                <className>com.example.app.soa.SimpleAddBean</className>
-                <genWsdl>true</genWsdl>
-                <verbose>true</verbose>
-            </configuration>
-            <goals>
-              <goal>java2ws</goal>
-            </goals>
-          </execution>
-          -->
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-codegen-plugin</artifactId>
-        <version>${cxf.version}</version>
-        <executions>
-          <!-- 
-          <execution>
-            <id>generate-sources</id>
-            <phase>generate-sources</phase>
-            <configuration>
-                <sourceRoot>${project.build.directory}/generated-sources/cxf</sourceRoot>
-                <wsdlOptions>
-                    <wsdlOption>
-                        <wsdl>${basedir}/src/main/resources/SimpleAddBean.wsdl</wsdl>
-                    </wsdlOption>
-                </wsdlOptions>
-            </configuration>
-            <goals>
-                <goal>wsdl2java</goal>
-            </goals>
-          </execution>
-          -->
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
 </project>
-
