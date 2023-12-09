@@ -12,7 +12,12 @@ import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 
 /**
+ * なお、JSON配列の指定は許容しない。
  * 
+ * 工数的な問題かつ。配列配下の個別の置き換えなどはrfc7386の中でもオブジェクトではないターゲットの一部にパッチが適用することはできない。と記載がある。
+ * 
+ * かつ、配列をフィルタリングした結果、当初の順序性と異なる状態になるため、
+ * それらの順序性の保証というのがJSON上では基本的には保証する方針とあるが、それらのルールに違反するため。
  */
 public class JsonPointerFilterList {
 

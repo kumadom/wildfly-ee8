@@ -140,7 +140,7 @@ public class JsonPointerFilterListTest {
 	 * filterListに存在しないオブジェクトを指定した場合でも正常終了すること。戻りデータは何も返されないこと。
 	 */
 	@Test
-	public void testObjectFilter_001() {
+	public void testFilterObject_001() {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
@@ -155,7 +155,7 @@ public class JsonPointerFilterListTest {
 	 * <条件>１階層目で絞り込みを行う場合
 	 */
 	@Test
-	public void testObjectFilter_002() {
+	public void testFilterObject_002() {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
@@ -171,7 +171,7 @@ public class JsonPointerFilterListTest {
 	 * <条件>２階層目で絞り込みを行う場合
 	 */
 	@Test
-	public void testObjectFilter_003() {
+	public void testFilterObject_003() {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
@@ -188,7 +188,7 @@ public class JsonPointerFilterListTest {
 	 * <条件>複数の絞り込み条件を指定する。
 	 */
 	@Test
-	public void testObjectFilter_004() {
+	public void testFilterObject_004() {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
@@ -207,7 +207,7 @@ public class JsonPointerFilterListTest {
 	 *  1件目で取得したデータより２件目で取得したデータのほうが少ない場合に、マージされていることを確認する。
 	 */
 	@Test
-	public void testObjectFilter_005() {
+	public void testFilterObject_005() {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
@@ -218,4 +218,73 @@ public class JsonPointerFilterListTest {
 		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
 	}
 
+	/**
+	 * filterListに存在するオブジェクトを指定した場合に絞り込み後のデータを返すこと。
+	 * <条件>
+	 * int値を指定してきた場合
+	 */
+	@Test
+	public void testFilterObject_006() {
+		// テストデータ準備
+		JsonFilterData parent = new JsonFilterData(null, null);
+		parent.setI(11);
+		// テスト実施
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/i"));
+		JsonFilterData result = target.filterObject(parent);
+		// 検証
+		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
+	}
+
+	/**
+	 * 配列指定をしてきた場合に異常終了すること。
+	 * <条件>
+	 * 配列を指定してきた場合
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testFilterObject_007() {
+		// テストデータ準備
+		JsonFilterData parent = new JsonFilterData(null, null);
+		parent.setLi(List.of(new JsonFilterData(null, "hoge")));;
+		// テスト実施
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/li/0"));
+		JsonFilterData result = target.filterObject(parent);
+		// 検証
+		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
+	}
+
+	/**
+	 * 配列指定をしてきた場合に異常終了すること。
+	 * <条件>
+	 * 配列の中の要素を指定してきた場合
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testFilterObject_008() {
+		// テストデータ準備
+		JsonFilterData parent = new JsonFilterData(null, "fuga");
+		parent.setLi(List.of(new JsonFilterData(null, "hoge")));;
+		// テスト実施
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/li/0/value"));
+		JsonFilterData result = target.filterObject(parent);
+		// 検証
+		parent.setValue(null);
+		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
+	}
+
+	/**
+	 * 配列指定をしてきた場合に異常終了すること。
+	 * <条件>
+	 * 配列の中の要素を複数指定してきた場合
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testFilterObject_009() {
+		// テストデータ準備
+		JsonFilterData parent = new JsonFilterData(null, "fuga");
+		parent.setLi(List.of(new JsonFilterData(null, "hoge").setI(10)));
+		// テスト実施
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/li/0/value", "/li/0/i"));
+		JsonFilterData result = target.filterObject(parent);
+		// 検証
+		parent.setValue(null);
+		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
+	}
 }

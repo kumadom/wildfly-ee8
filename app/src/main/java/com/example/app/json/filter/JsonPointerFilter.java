@@ -1,12 +1,14 @@
 package com.example.app.json.filter;
 
+import java.util.regex.Pattern;
+
 import jakarta.json.Json;
-import jakarta.json.JsonObject;
 import jakarta.json.JsonPointer;
 import jakarta.json.JsonStructure;
 import jakarta.json.JsonValue;
 
 class JsonPointerFilter {
+	private final static Pattern numberReg = Pattern.compile("^[0-9]+$");
 	private final String[] referenceTokens;
 	private final String jsonPointer;
 
@@ -21,6 +23,9 @@ class JsonPointerFilter {
 			if ("".equals(referenceTokens[i])) {
 				throw new IllegalArgumentException("フィルタリングパス内での\"/\"の連続、および終了は許容していません。");
 			}
+			if (numberReg.matcher(referenceTokens[i]).find()) {
+				throw new IllegalArgumentException("フィルタリングパスに配列の指定は許容していません。");
+			}
 		}
 	}
 
@@ -32,24 +37,29 @@ class JsonPointerFilter {
 	 * @param json
 	 * @return
 	 */
-	JsonObject doFilter(final JsonStructure json) {
+	JsonStructure doFilter(final JsonStructure json) {
 		final JsonPointer pointer = Json.createPointer(jsonPointer);
-		JsonObject filterdJson = JsonValue.EMPTY_JSON_OBJECT;
+		JsonStructure filterdJson = JsonValue.EMPTY_JSON_OBJECT;
 		if (pointer.containsValue(json)) {
 			// JSON情報が取得できた場合、後続のJSONPatchでエラーとならないように対象のパスまでのJSON構造を組み立てる
 			if (1 < referenceTokens.length) {
 				filterdJson = createObject(1);
 			}
-			filterdJson = Json.createPatchBuilder().add(jsonPointer, pointer.getValue(json)).build()
-					.apply(filterdJson);
+			filterdJson = Json.createPatchBuilder().replace(jsonPointer, pointer.getValue(json)).build().apply(filterdJson);
 		}
 		return filterdJson;
 	}
 
-	private JsonObject createObject(int index) {
+	private JsonStructure createObject(int index) {
 		String referenceToken = referenceTokens[index];
-		JsonObject obj = ++index < referenceTokens.length ? createObject(index) : JsonStructure.EMPTY_JSON_OBJECT;
+		JsonStructure obj = ++index < referenceTokens.length ? createObject(index) : JsonStructure.EMPTY_JSON_OBJECT;
 		return Json.createObjectBuilder().add(referenceToken, obj).build();
+//		if (numberReg.matcher(referenceToken).find()) {
+//			result = Json.createArrayBuilder().add(obj).build();
+//		} else {
+//			result = Json.createObjectBuilder().add(referenceToken, obj).build();
+//		}
+//		return result;
 	}
 
 	@Override
@@ -62,7 +72,7 @@ class JsonPointerFilter {
 		}
 		return this.hashCode() == obj.hashCode();
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return jsonPointer.hashCode();
