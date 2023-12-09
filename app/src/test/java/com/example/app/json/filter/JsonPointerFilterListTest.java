@@ -9,7 +9,7 @@ import org.junit.Test;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 
-public class ObjectFilterTest {
+public class JsonPointerFilterListTest {
 
 	private static final Jsonb jsonb = JsonbBuilder.create();
 	
@@ -21,8 +21,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one"); 
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of(""));
-		JsonFilterData result = target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of(""));
+		JsonFilterData result = target.filterObject(parent);
 		// 検証
 		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
 	}
@@ -35,8 +35,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data"));
-		JsonFilterData result = target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data"));
+		JsonFilterData result = target.filterObject(parent);
 		// 検証
 		parent.setValue(null);
 		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
@@ -50,8 +50,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data/data"));
-		JsonFilterData result = target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data/data"));
+		JsonFilterData result = target.filterObject(parent);
 		// 検証
 		parent.setValue(null);
 		parent.getData().setValue(null);
@@ -66,8 +66,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("//data"));
-		target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("//data"));
+		target.filterObject(parent);
 	}
 
 	/**
@@ -78,8 +78,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data//data"));
-		target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data//data"));
+		target.filterObject(parent);
 	}
 
 	/**
@@ -90,8 +90,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data//"));
-		target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data//"));
+		target.filterObject(parent);
 	}
 		
 	/**
@@ -102,8 +102,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data/"));
-		target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data/"));
+		target.filterObject(parent);
 	}
 	
 	/**
@@ -114,10 +114,28 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("parent"));
-		target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("parent"));
+		target.filterObject(parent);
 	}
 	
+	/**
+	 * filterListにnullを指定した場合{@code IllegalArgumentException}が発生すること。
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testJsonFilter_009() {
+		// テスト実施
+		new JsonPointerFilterList(null);
+	}
+
+	/**
+	 * filterListに""を指定した場合正常終了すること。
+	 */
+	@Test
+	public void testJsonFilter_0010() {
+		// テスト実施
+		new JsonPointerFilterList(List.of(""));
+	}
+
 	/**
 	 * filterListに存在しないオブジェクトを指定した場合でも正常終了すること。戻りデータは何も返されないこと。
 	 */
@@ -126,8 +144,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/hoge"));
-		JsonFilterData result = (JsonFilterData)target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/hoge"));
+		JsonFilterData result = (JsonFilterData)target.filterObject(parent);
 		// 検証
 		assertThat(jsonb.toJson(result)).isEqualTo("{}");
 	}
@@ -141,8 +159,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data"));
-		JsonFilterData result = target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data"));
+		JsonFilterData result = target.filterObject(parent);
 		// 検証
 		parent.setValue(null);
 		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
@@ -157,8 +175,8 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data/data"));
-		JsonFilterData result = target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data/data"));
+		JsonFilterData result = target.filterObject(parent);
 		// 検証
 		parent.setValue(null);
 		parent.getData().setValue(null);
@@ -174,13 +192,30 @@ public class ObjectFilterTest {
 		// テストデータ準備
 		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
 		// テスト実施
-		ObjectFilter<JsonFilterData> target = new ObjectFilter<JsonFilterData>(List.of("/data/data", "/data/data"));
-		JsonFilterData result = target.doFilter(parent);
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data/data", "/data/data"));
+		JsonFilterData result = target.filterObject(parent);
 		// 検証
 		parent.setValue(null);
 		parent.getData().setValue(null);
 		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
 	}
 
+	/**
+	 * filterListに存在するオブジェクトを指定した場合に絞り込み後のデータを返すこと。
+	 * <条件>
+	 *  複数の絞り込み条件を指定する。
+	 *  1件目で取得したデータより２件目で取得したデータのほうが少ない場合に、マージされていることを確認する。
+	 */
+	@Test
+	public void testObjectFilter_005() {
+		// テストデータ準備
+		JsonFilterData parent = new JsonFilterData(new JsonFilterData(new JsonFilterData(), "two"), "one");
+		// テスト実施
+		JsonPointerFilterList target = new JsonPointerFilterList(List.of("/data", "/data/data"));
+		JsonFilterData result = target.filterObject(parent);
+		// 検証
+		parent.setValue(null);
+		assertThat(jsonb.toJson(result)).isEqualTo(jsonb.toJson(parent));
+	}
 
 }
