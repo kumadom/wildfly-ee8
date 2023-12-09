@@ -8,7 +8,6 @@ public class JsonbSerializerSample implements JsonbSerializer<String> {
 
 	@Override
 	public void serialize(String obj, JsonGenerator generator, SerializationContext ctx) {
-		System.out.println("serializer");
 		generator.writeStartObject().write("obj", obj).writeEnd();
 		// ctx.serialize(generator);
 		

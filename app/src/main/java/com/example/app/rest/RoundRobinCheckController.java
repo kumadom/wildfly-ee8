@@ -13,7 +13,6 @@ public class RoundRobinCheckController extends DecoratorAbstract implements Deco
 	@GET
 	public void get() {
 		Client client = ClientBuilder.newBuilder().build();
-		System.out.println("START!!!　CHECK");
 		client.target("http://roundrobin-service.sample.svc.cluster.local/exclude").request().get();
 		
 	}

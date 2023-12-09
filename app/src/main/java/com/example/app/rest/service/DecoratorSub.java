@@ -25,14 +25,12 @@ public class DecoratorSub implements DecoratorIF {
 	@Override
 	public String hoge() {
 		superIf.hoge();
-		System.out.println("Sub hoge");
 		return null;
 	}
 
 	@Override
 	public String hoge2() {
 		superIf.hoge2();
-		System.out.println("Sub hoge2");
 		return null;
 	}
 

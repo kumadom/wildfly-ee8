@@ -1,0 +1,207 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Example: Root Project                                              [pom]
+[INFO] Example: app                                                       [jar]
+[INFO] Example: domain                                                    [jar]
+[INFO] Example: Integration Test Aggregator                               [war]
+[INFO] 
+[INFO] ---------------------< com.example:wildfly-paret >----------------------
+[INFO] Building Example: Root Project 1.0.0                               [1/4]
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ wildfly-paret ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ wildfly-paret ---
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\pom.xml to C:\Users\akito\.m2\repository\com\example\wildfly-paret\1.0.0\wildfly-paret-1.0.0.pom
+[INFO] 
+[INFO] --------------------------< com.example:app >---------------------------
+[INFO] Building Example: app 1.0.1                                        [2/4]
+[INFO] --------------------------------[ jar ]---------------------------------
+[WARNING] The artifact org.hibernate:hibernate-validator:jar:8.0.0.Final has been relocated to org.hibernate.validator:hibernate-validator:jar:8.0.0.Final
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ app ---
+[INFO] Deleting C:\Users\akito\git\wildfly-ee8\app\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ app ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 7 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 86 source files to C:\Users\akito\git\wildfly-ee8\app\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ app ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ app ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 9 source files to C:\Users\akito\git\wildfly-ee8\app\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ app ---
+[INFO] Surefire report directory: C:\Users\akito\git\wildfly-ee8\app\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.example.app.concurrent.SomeThreadTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.046 sec
+Running com.example.app.rest.client.RestClientSampleTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec
+
+Results :
+
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:3.3.0:jar (default-jar) @ app ---
+[INFO] Building jar: C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1.jar
+[INFO] 
+[INFO] --- maven-war-plugin:3.4.0:war (make-war) @ app ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [app] in [C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1]
+[INFO] Processing war project
+[INFO] Copying webapp webResources [C:\Users\akito\git\wildfly-ee8\app\src/main/webapp] to [C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1]
+[INFO] Copying webapp resources [C:\Users\akito\git\wildfly-ee8\app\src\main\webapp]
+[INFO] Building war: C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1.war
+[INFO] 
+[INFO] --- maven-jar-plugin:3.3.0:test-jar (default) @ app ---
+[INFO] Building jar: C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ app ---
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1.jar to C:\Users\akito\.m2\repository\com\example\app\1.0.1\app-1.0.1.jar
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\app\pom.xml to C:\Users\akito\.m2\repository\com\example\app\1.0.1\app-1.0.1.pom
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\app\target\app-1.0.1-tests.jar to C:\Users\akito\.m2\repository\com\example\app\1.0.1\app-1.0.1-tests.jar
+[INFO] 
+[INFO] -------------------------< com.example:domain >-------------------------
+[INFO] Building Example: domain 1.0.0                                     [3/4]
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ domain ---
+[INFO] Deleting C:\Users\akito\git\wildfly-ee8\domain\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ domain ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:compile (default-compile) @ domain ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 2 source files to C:\Users\akito\git\wildfly-ee8\domain\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ domain ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\akito\git\wildfly-ee8\domain\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.1:testCompile (default-testCompile) @ domain ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\Users\akito\git\wildfly-ee8\domain\target\test-classes
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ domain ---
+[INFO] Surefire report directory: C:\Users\akito\git\wildfly-ee8\domain\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.example.domain.AppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 sec
+
+Results :
+
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ domain ---
+[INFO] Building jar: C:\Users\akito\git\wildfly-ee8\domain\target\domain-1.0.0.jar
+[INFO] 
+[INFO] --- maven-jar-plugin:2.4:test-jar (default) @ domain ---
+[INFO] Building jar: C:\Users\akito\git\wildfly-ee8\domain\target\domain-1.0.0-tests.jar
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ domain ---
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\domain\target\domain-1.0.0.jar to C:\Users\akito\.m2\repository\com\example\domain\1.0.0\domain-1.0.0.jar
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\domain\pom.xml to C:\Users\akito\.m2\repository\com\example\domain\1.0.0\domain-1.0.0.pom
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\domain\target\domain-1.0.0-tests.jar to C:\Users\akito\.m2\repository\com\example\domain\1.0.0\domain-1.0.0-tests.jar
+[INFO] 
+[INFO] ----------------------< com.example:integration >-----------------------
+[INFO] Building Example: Integration Test Aggregator 1.0.0                [4/4]
+[INFO] --------------------------------[ war ]---------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ integration ---
+[INFO] Deleting C:\Users\akito\git\wildfly-ee8\integration\target
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:resources (default-resources) @ integration ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\akito\git\wildfly-ee8\integration\src\main\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:compile (default-compile) @ integration ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 1 source file to C:\Users\akito\git\wildfly-ee8\integration\target\classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.6:testResources (default-testResources) @ integration ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory C:\Users\akito\git\wildfly-ee8\integration\src\test\resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.8.1:testCompile (default-testCompile) @ integration ---
+[INFO] Changes detected - recompiling the module!
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.12.4:test (default-test) @ integration ---
+[INFO] 
+[INFO] --- maven-war-plugin:3.4.0:war (default-war) @ integration ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [integration] in [C:\Users\akito\git\wildfly-ee8\integration\target\integration]
+[INFO] Processing war project
+[INFO] Copying webapp resources [C:\Users\akito\git\wildfly-ee8\integration\src\main\webapp]
+[INFO] Building war: C:\Users\akito\git\wildfly-ee8\integration\target\integration.war
+[INFO] 
+[INFO] --- maven-dependency-plugin:3.2.0:copy (copy) @ integration ---
+[INFO] Configured Artifact: org.postgresql:postgresql:42.2.24:jar
+[INFO] Copying postgresql-42.2.24.jar to C:\Users\akito\git\wildfly-ee8\deliverables\modules\com\postgresql\main\postgresql.jar
+[INFO] 
+[INFO] --- maven-antrun-plugin:3.0.0:run (default) @ integration ---
+[INFO] Executing tasks
+[INFO]      [copy] Copying 1 file to C:\Users\akito\server\wildfly-27.0.1.Final\standalone\configuration
+[INFO]      [copy] Copying 1 file to C:\Users\akito\server\wildfly-27.0.1.Final\modules\com\postgresql\main
+[INFO]      [copy] Copying 1 file to C:\Users\akito\server\wildfly-27.0.1.Final\modules\com\postgresql\main
+[INFO]      [copy] Copying 1 file to C:\Users\akito\server\wildfly-27.0.1.Final\standalone\deployments
+[INFO]      [copy] Copying 1 file to C:\Users\akito\git\wildfly-ee8\deliverables\deployments
+[INFO]      [copy] Copying 1 file to C:\Users\akito\git\wildfly-ee8\deliverables\configuration
+[INFO] Executed tasks
+[INFO] 
+[INFO] --- wildfly-maven-plugin:4.2.0.Final:start (deploy) @ integration ---
+[INFO] JBoss Threads version 2.4.0.Final
+[INFO] JBoss Remoting version 5.0.27.Final
+[INFO] XNIO version 3.8.9.Final
+[INFO] XNIO NIO Implementation Version 3.8.9.Final
+[INFO] ELY00001: WildFly Elytron version 2.2.1.Final
+[INFO] JAVA_HOME : C:\Users\akito\scoop\apps\openjdk17\current
+[INFO] JBOSS_HOME: C:\Users\akito\server\wildfly-27.0.1.Final
+[INFO] JAVA_OPTS : -Duser.dir=C:\Users\akito\git\wildfly-ee8\integration -verbose:class -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8787 --add-exports=java.base/sun.nio.ch=ALL-UNNAMED --add-exports=jdk.unsupported/sun.reflect=ALL-UNNAMED --add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED --add-modules=java.se
+[INFO] STANDALONE server is starting up.
+[INFO] 
+[INFO] --- wildfly-maven-plugin:4.2.0.Final:deploy-only (deploy) @ integration ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:3.0.0-M5:integration-test (default) @ integration ---
+[INFO] 
+[INFO] --- wildfly-maven-plugin:4.2.0.Final:undeploy (undeploy) @ integration ---
+[INFO] 
+[INFO] --- wildfly-maven-plugin:4.2.0.Final:shutdown (undeploy) @ integration ---
+[INFO] 
+[INFO] --- maven-failsafe-plugin:3.0.0-M5:verify (default) @ integration ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.4:install (default-install) @ integration ---
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\integration\target\integration.war to C:\Users\akito\.m2\repository\com\example\integration\1.0.0\integration-1.0.0.war
+[INFO] Installing C:\Users\akito\git\wildfly-ee8\integration\pom.xml to C:\Users\akito\.m2\repository\com\example\integration\1.0.0\integration-1.0.0.pom
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Example: Root Project 1.0.0 ........................ SUCCESS [  0.194 s]
+[INFO] Example: app 1.0.1 ................................. SUCCESS [  4.749 s]
+[INFO] Example: domain 1.0.0 .............................. SUCCESS [  0.579 s]
+[INFO] Example: Integration Test Aggregator 1.0.0 ......... SUCCESS [ 15.312 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  21.005 s
+[INFO] Finished at: 2023-11-13T00:58:21+09:00
+[INFO] ------------------------------------------------------------------------

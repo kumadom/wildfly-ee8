@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.io.IOUtils;
+
+import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
+import com.example.app.com.jaxrs.request.model.ErrorResponse;
+
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.bind.Jsonb;
@@ -17,11 +22,6 @@ import jakarta.ws.rs.client.ClientResponseContext;
 import jakarta.ws.rs.client.ClientResponseFilter;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response.Status;
-
-import org.apache.commons.io.IOUtils;
-
-import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
-import com.example.app.com.jaxrs.request.model.ErrorResponse;
 
 public class AppTestRestClientFilter implements ClientResponseFilter, ClientRequestFilter {
 
@@ -41,7 +41,6 @@ public class AppTestRestClientFilter implements ClientResponseFilter, ClientRequ
 				break;
 			case CLIENT_ERROR:
 			case SERVER_ERROR:
-				System.out.println(jsonObj.toString());
 				byte[] tmpData = jsonObj.getJsonObject("commonResponseHeader").get("errorDetailInfo").toString()
 						.getBytes(StandardCharsets.UTF_8);
 				Jsonb jsonb = JsonbBuilder.create();

@@ -50,7 +50,6 @@ public class SampleController {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get(@Valid @Masking SampleRequest res, SampleRequest rr) {
 		service.persist();
-		System.out.println("リソースクラス開始");
 		// throw new RuntimeException();
 		return Response.ok(res).build();
 //		System.out.println("hogeを呼び出し");

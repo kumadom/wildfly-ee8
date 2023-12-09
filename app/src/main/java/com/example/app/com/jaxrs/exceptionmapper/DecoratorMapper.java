@@ -27,7 +27,6 @@ public class DecoratorMapper implements ExceptionMapper<ConstraintViolationExcep
 		Response res = mapper.toResponse(exception);
 		ErrorResponse response = (ErrorResponse) res.getEntity();
 		response.setErrorDetailInfo(Arrays.asList(new ErrorDetailInfo("SYSTEM ERROR", "フハハ")));
-		System.out.println("sssssssssssssssssssssssssssssssssssssssss");
 		return res;
 	}
 

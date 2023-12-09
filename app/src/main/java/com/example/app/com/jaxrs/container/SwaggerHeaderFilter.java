@@ -3,6 +3,11 @@ package com.example.app.com.jaxrs.container;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import com.example.app.com.RequestContext;
+import com.example.app.com.core.log.LoggerName;
+import com.example.app.com.core.log.LoggerNameValue;
+import com.example.app.com.jaxrs.constants.AppPriorities;
+
 import jakarta.annotation.Priority;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.container.ContainerRequestContext;
@@ -10,11 +15,6 @@ import jakarta.ws.rs.container.ContainerRequestFilter;
 import jakarta.ws.rs.container.ContainerResponseContext;
 import jakarta.ws.rs.container.ContainerResponseFilter;
 import jakarta.ws.rs.ext.Provider;
-
-import com.example.app.com.RequestContext;
-import com.example.app.com.core.log.LoggerName;
-import com.example.app.com.core.log.LoggerNameValue;
-import com.example.app.com.jaxrs.constants.AppPriorities;
 
 @Provider
 @Priority(AppPriorities.FILTER.SWAGGER_HEADER_PROCESS)
@@ -26,19 +26,19 @@ public class SwaggerHeaderFilter implements ContainerRequestFilter, ContainerRes
 	
 	@Override
 	public void filter(ContainerRequestContext requestContext) throws IOException {
-		logger.info("ContainerRequestFilterの開始");
+		logger.fine("ContainerRequestFilterの開始");
 		con.setStr("request");
-		logger.info("ContainerRequestFilterの終了");
+		logger.fine("ContainerRequestFilterの終了");
 	}
 
 	@Override
 	public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
 			throws IOException {
-		logger.info("ContainerResponseFilterの開始");
+		logger.fine("ContainerResponseFilterの開始");
 		responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
 		responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET,POST,HEAD,OPTIONS");
 		responseContext.getHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-		logger.info("ContainerResponseFilterの終了");
+		logger.fine("ContainerResponseFilterの終了");
 	}
 	
 }

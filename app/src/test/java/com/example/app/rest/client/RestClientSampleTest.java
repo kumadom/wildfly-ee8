@@ -15,8 +15,6 @@ public class RestClientSampleTest {
 		try {
 			InetAddress[] addresses =  resolver.resolve("qiita.com");
 			for(InetAddress address: addresses) {
-				System.out.println(address.getCanonicalHostName());
-				System.out.println(address.getHostAddress());
 			}
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block

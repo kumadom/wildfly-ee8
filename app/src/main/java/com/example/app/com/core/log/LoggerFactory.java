@@ -14,7 +14,7 @@ public class LoggerFactory {
 	@LoggerName(LoggerNameValue.DEFAULT)
 	public Logger createLogger(InjectionPoint injectionPoint) {
 		Logger logger = Logger.getLogger("LoggerFactory");
-		logger.setLevel(Level.FINE);
+		logger.setLevel(Level.INFO);
 		return logger;
 	}
 

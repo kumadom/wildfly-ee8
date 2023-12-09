@@ -15,7 +15,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 public class SampleFilter implements Filter {
 
@@ -29,19 +28,12 @@ public class SampleFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		logger.info("Servlet Filter!!!!!");
+		logger.fine("Servlet Filter!!!!!");
 
 		HttpServletRequest httpRequest = (HttpServletRequest)request;
 		Enumeration<String>headerNames = httpRequest.getHeaderNames();
-	    if (headerNames != null) {
-            while (headerNames.hasMoreElements()) {
-            	String headerName = headerNames.nextElement();
-            	System.out.println("HeaderName: " +headerName + ", HeaderValue: " + httpRequest.getHeader(headerName));
-            }
-	    }
 	    HttpServletDumpWrapper wrapper = new HttpServletDumpWrapper((HttpServletRequest)request);
 		chain.doFilter(wrapper, response);
-		System.out.println(((HttpServletResponse)response).getStatus());
 	}
 
 	@Override

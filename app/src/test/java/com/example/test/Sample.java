@@ -1,10 +1,10 @@
 package com.example.test;
 
-import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 
 public class Sample {
@@ -18,28 +18,28 @@ public class Sample {
 		byte[] bytes = new byte[2];
 		bytes[0] = 66;
 		bytes[1] = 48;
-		System.out.println(new String(sbytes, StandardCharsets.UTF_8));
-		System.out.println(new String(sbytes));
-		System.out.println(getHexString(bytes[0]));
-		System.out.println(getHexString(bytes[1]));
-		System.out.println(new String(bytes));
-		System.out.println(sbytes);;
 		
 		String a = new String(bytes);
-		System.out.println(a);
-		System.out.println(sbytes.length);
-		System.out.println(sbytes);
-		System.out.println(Hex.encodeHex(sbytes));
-
-		
-		
 		sbytes = "い".getBytes(StandardCharsets.UTF_8);
-		System.out.println(sbytes.length);
-		System.out.println(sbytes);
-		System.out.println(Hex.encodeHex(sbytes));
 
 	}
 
+	@Test
+	public void test1() {
+		Map<String, Object> map = new HashMap<>();
+		map.put("hoge", "h");
+		map.put("fuga", new ArrayList<>());
+		
+		Hoge hoge = new Hoge();
+		hoge.fuga = map.get("fuga") instanceof String fuga? (String)fuga: null;
+		System.out.println(hoge.fuga);
+	}
+	
+	private class Hoge {
+		private String hoge;
+		private String fuga;
+	}
+	
 	private String getHexString(byte b) {
 		StringBuilder builder = new StringBuilder();
 		return builder.append("0x").append(Integer.toHexString(Integer.valueOf(b))).toString();

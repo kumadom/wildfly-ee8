@@ -1,11 +1,11 @@
 package com.example.app.com.interceptor;
 
+import com.example.app.com.interceptor.constants.InterceptorPriorities;
+
 import jakarta.annotation.Priority;
 import jakarta.interceptor.AroundInvoke;
 import jakarta.interceptor.Interceptor;
 import jakarta.interceptor.InvocationContext;
-
-import com.example.app.com.interceptor.constants.InterceptorPriorities;
 
 @Interceptor
 @Priority(InterceptorPriorities.APP_INFO_LOG_PROCESS)
@@ -15,10 +15,8 @@ public class ExceptionHandleInterceptor {
 	@AroundInvoke
 	public Object intercept(InvocationContext ic) throws Exception {
 		try {
-			System.out.println("START:ExceptionHandleInterceptor");
 			return ic.proceed();
 		} catch (Exception e) {
-			System.out.println("END:ExceptionHandleInterceptor");
 			e.printStackTrace();
 			throw e;
 		}

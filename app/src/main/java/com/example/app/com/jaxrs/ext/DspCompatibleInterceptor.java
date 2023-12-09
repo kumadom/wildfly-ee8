@@ -5,6 +5,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.example.app.com.core.log.LoggerName;
+import com.example.app.com.core.log.LoggerNameValue;
+import com.example.app.com.jaxrs.constants.AppPriorities;
+import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
+import com.example.app.com.jaxrs.request.model.ErrorResponse;
+import com.example.app.com.jaxrs.request.model.dsp.DspCommonResponseHeader;
+import com.example.app.com.jaxrs.request.model.dsp.DspCompatibleResponse;
+
 import jakarta.annotation.Priority;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.WebApplicationException;
@@ -16,14 +24,6 @@ import jakarta.ws.rs.ext.Providers;
 import jakarta.ws.rs.ext.WriterInterceptor;
 import jakarta.ws.rs.ext.WriterInterceptorContext;
 
-import com.example.app.com.core.log.LoggerName;
-import com.example.app.com.core.log.LoggerNameValue;
-import com.example.app.com.jaxrs.constants.AppPriorities;
-import com.example.app.com.jaxrs.request.model.ErrorDetailInfo;
-import com.example.app.com.jaxrs.request.model.ErrorResponse;
-import com.example.app.com.jaxrs.request.model.dsp.DspCommonResponseHeader;
-import com.example.app.com.jaxrs.request.model.dsp.DspCompatibleResponse;
-
 @Provider
 @Priority(AppPriorities.PRE_WRITE.DSP_COMPATIBLE_PROCESS)
 public class DspCompatibleInterceptor implements WriterInterceptor{
@@ -34,11 +34,6 @@ public class DspCompatibleInterceptor implements WriterInterceptor{
 	
 	@Override
 	public void aroundWriteTo(WriterInterceptorContext context) throws IOException, WebApplicationException {
-		System.out.println("レスポンスのメディアタイプ");
-		if(MediaType.APPLICATION_JSON_TYPE.equals(context.getMediaType())) System.out.println("JSON!!");
-		System.out.println(context.getMediaType());
-		//ResteasyProviderFactor
-		System.out.println(providers.getClass().toString());
 //		MessageBodyWriter<?> pro = providers.getMessageBodyWriter(context.getEntity().getClass(), null, null, context.getMediaType());
 //		Class<?>clazz = pro.getClass();
 //		System.out.println(clazz);
@@ -49,18 +44,18 @@ public class DspCompatibleInterceptor implements WriterInterceptor{
 //		System.out.println(pro.getClass().toString());
 		
 		MultivaluedMap<String, Object> headers = context.getHeaders();
-		logger.info("DspCompatibleInterceptorの開始");
-		logger.info("ヘッダー出力開始");
+		logger.fine("DspCompatibleInterceptorの開始");
+		logger.fine("ヘッダー出力開始");
 		headers.forEach((k, v) -> {
-			logger.info("ヘッダー名" + k);
-			logger.info("ヘッダー値" + v.toString());
+			logger.fine("ヘッダー名" + k);
+			logger.fine("ヘッダー値" + v.toString());
 		});
-		logger.info("ヘッダー出力終了");
+		logger.fine("ヘッダー出力終了");
 		Object o = context.getEntity();
 		logger.log(Level.INFO, o.toString());
 		if (MediaType.APPLICATION_JSON_TYPE.equals(context.getMediaType())) {
 			if (o instanceof ErrorResponse) {
-				logger.log(Level.INFO, "共通ボディの編集処理に入りました");
+				logger.log(Level.FINE, "共通ボディの編集処理に入りました");
 				ErrorResponse errorResponse = (ErrorResponse)o;
 				List<ErrorDetailInfo> errorDetailInfo = errorResponse.getErrorDetailInfo();
 				DspCommonResponseHeader commonResponseHeader = errorDetailInfo.stream().findFirst().map(e -> {
@@ -79,7 +74,7 @@ public class DspCompatibleInterceptor implements WriterInterceptor{
 			}
 
 		}
-		logger.info("DspCompatibleInterceptorの終了");
+		logger.fine("DspCompatibleInterceptorの終了");
 		context.proceed();
 	}
 

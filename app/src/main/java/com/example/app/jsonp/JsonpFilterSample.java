@@ -30,7 +30,6 @@ public class JsonpFilterSample {
 
 	private static void remove() {
 		JsonStructure original = generateSample();
-		System.out.println(original);
 		JsonPointer pointer = Json.createPointer("/object/fuga");
 		// JsonValue value = pointer.getValue(original);
 		JsonValue va =  JsonValue.EMPTY_JSON_OBJECT;
@@ -41,20 +40,13 @@ public class JsonpFilterSample {
 		res.setField("Hoge");
 		res.setObject(new SampleResponse());
 		JsonStructure val = Json.createReader(new StringReader(jsonb.toJson(res))).read();
-		System.out.println(val);
 		JsonStructure after = pointer.add(val, va);
 		after = pointer.add(val, va);
-		System.out.println(after);
 		after = pointer.add(val, va);
-		System.out.println(after);
 		after = pointer.add(val, va);
-		System.out.println(after);
 		after = pointer.add(val, va);
-		System.out.println(after);
 		after = pointer.add(val, va);
-		System.out.println(after);
 		pointer.remove(original);
-		System.out.println(after);
 		
 	}
 	
@@ -73,27 +65,20 @@ public class JsonpFilterSample {
 			Event event = parser.next();
 			switch (event) {
 			case END_ARRAY:
-				System.out.println(event);
 				break;
 			case END_OBJECT:
-				System.out.println(event);
 				jsonPointer.pop();
 				break;
 			case KEY_NAME:
-				System.out.println(event);
 				jsonPointer.push(parser.getString());
 				break;
 			case START_ARRAY:
-				System.out.println(event);
 				break;
 			case START_OBJECT:
-				System.out.println(event);
 				break;
 			case VALUE_FALSE:
-				System.out.println(event);
 				break;
 			case VALUE_NULL:
-				System.out.println(event);
 				Iterator<String>ite = jsonPointer.descendingIterator();
 				StringBuilder strBuilder = new StringBuilder();
 				ite.next();
@@ -101,33 +86,25 @@ public class JsonpFilterSample {
 					strBuilder.append("/");
 					strBuilder.append(ite.next());
 				}
-				System.out.println(strBuilder.toString());
 				JsonPointer pointer = Json.createPointer(strBuilder.toString());
 				pointer.getValue(original);
 				JsonStructure removedJson = pointer.remove(original);
-				System.out.println(removedJson);
 
 				break;
 			case VALUE_NUMBER:
-				System.out.println(event);
 				break;
 			case VALUE_STRING:
-				System.out.println(event);
 				jsonPointer.pop();
 				break;
 			case VALUE_TRUE:
-				System.out.println(event);
 				break;
 			default:
-				System.out.println(event);
 				break;
 			}
 		}
-		System.out.println(original);
 		JsonPointer pointer = Json.createPointer("/object");
 		pointer.getValue(original);
 		JsonStructure removedJson = pointer.remove(original);
-		System.out.println(removedJson);
 		
 	}
 	
@@ -144,20 +121,15 @@ public class JsonpFilterSample {
 			Event event = parser.next();
 			switch (event) {
 			case END_ARRAY:
-				System.out.println(event);
 				break;
 			case KEY_NAME:
-				System.out.println(Event.KEY_NAME.name());
-				System.out.println(parser.getString());
 				propertyName = parser.getString();
 				break;
 			case START_ARRAY:
-				System.out.println(event);
 				break;
 			case START_OBJECT:
 				// オブジェクトのプロパティ名を保存
 				objectName.push(propertyName);
-				System.out.println(event);
 				// 新しいJSONオブジェクトの解析が始まったため、今まで処理していたJSONオブジェクトをpush
 				deque.push(currentObjectBulder);
 				// 新しいJSONオブジェクトに現在の変数を差し替え
@@ -165,23 +137,18 @@ public class JsonpFilterSample {
 				// currentObjectBulder.add("hoge", "");
 				break;
 			case END_OBJECT:
-				System.out.println(event);
 				// 作成が完了したJSONオブジェクトを登録する。
 				JsonObjectBuilder old = currentObjectBulder;
 				currentObjectBulder = deque.pop();
 				currentObjectBulder.add(objectName.pop(), old);
 				break;
 			case VALUE_FALSE:
-				System.out.println(event);
 				break;
 			case VALUE_NULL:
-				System.out.println(event);
 				break;
 			case VALUE_NUMBER:
-				System.out.println(event);
 				break;
 			case VALUE_STRING:
-				System.out.println(event);
 				Iterator<String>ite = objectName.descendingIterator();
 				StringBuilder strBuilder = new StringBuilder();
 				ite.next();
@@ -192,20 +159,16 @@ public class JsonpFilterSample {
 				strBuilder.append("/");
 				strBuilder.append(propertyName);
 				
-				System.out.println(strBuilder.toString());
 				
 				strBuilder.toString();
 				currentObjectBulder.add(propertyName, original.getValue(strBuilder.toString()));
 				break;
 			case VALUE_TRUE:
-				System.out.println(event);
 				break;
 			default:
-				System.out.println(event);
 				break;
 			}
 		}
-		System.out.println(currentObjectBulder.build().getJsonObject("default").toString());
 		
 	}
 	

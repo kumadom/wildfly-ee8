@@ -9,6 +9,7 @@
 
   <artifactId>app</artifactId>
   <packaging>jar</packaging>
+  <version>1.0.1</version>
   <name>Example: app</name>
 
   <properties>
@@ -25,12 +26,6 @@
       <groupId>jakarta.xml.ws</groupId>
       <artifactId>jakarta.xml.ws-api</artifactId>
       <version>4.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.sun.xml.ws</groupId>
-      <artifactId>jaxws-rt</artifactId>
-      <version>4.0.0</version>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -109,11 +104,6 @@
       <version>3.22.0</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-multipart-provider</artifactId>
-      <scope>provided</scope>
-    </dependency>
     <!-- この依存関係があると、JSON-Bでバインディングを試みる。 -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
@@ -131,11 +121,53 @@
       <version>2.33.2</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.sun.xml.ws</groupId>
-      <artifactId>rt</artifactId>
-      <version>2.3.1</version>
-    </dependency>
-  </dependencies>
+</dependencies>
+
+  <build>
+    <plugins>
+	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>make-war</id>
+            <phase>package</phase>
+            <goals>
+              <goal>war</goal>
+            </goals>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+						<Dependencies></Dependencies>
+                    </manifestEntries>
+                </archive>
+              <failOnMissingWebXml>false</failOnMissingWebXml>
+              <webResources>
+                <resource>
+                  <directory>src/main/webapp</directory>
+                </resource>
+              </webResources>
+              <primaryArtifact>false</primaryArtifact>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-jar-plugin</artifactId>
+		  <version>3.3.0</version>
+		  <executions>
+			  <execution>
+				  <id>make-jar</id>
+				  <phase>post-integration-test</phase>
+				  <configuration>
+					  <forceCreation>true</forceCreation>
+				  </configuration>
+			  </execution>
+		  </executions>
+	  </plugin>
+    </plugins>
+  </build>
 
 </project>
